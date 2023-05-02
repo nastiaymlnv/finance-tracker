@@ -6,6 +6,7 @@ import ErrorPage from './error-page';
 import Home from './pages/Home';
 import Bills from './pages/Bills';
 import Analytics from './pages/Analytics';
+import CreateOperation from "./pages/CreateOperation";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,11 @@ const router = createBrowserRouter([
     {
         path: "analytics",
         element: <Analytics />,
+        errorElement: <ErrorPage />
+    },
+    {
+        path: "operation",
+        element: <CreateOperation />,
         errorElement: <ErrorPage />
     }
     ]);
