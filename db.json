@@ -1,0 +1,32 @@
+{
+    "operations": [
+        {
+            "id": "testId1",
+            "type": "Expense",
+            "price": 30,
+            "category": "Products",
+            "date": "09.05.2023",
+            "payment": "Card",
+            "comment": "comment"
+        },
+        {
+            "id": "testId2",
+            "type": "Expense",
+            "price": 20,
+            "category": "Products",
+            "date": "09.05.2023",
+            "payment": "Cash",
+            "comment": null
+        },
+        {
+            "id": "testId3",
+            "type": "Expense",
+            "price": 10,
+            "category": "Products",
+            "date": "09.05.2023",
+            "payment": "Card",
+            "comment": "comment"
+        }
+
+    ]
+}
