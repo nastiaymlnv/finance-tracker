@@ -1,6 +1,9 @@
 import React, {useState, useRef} from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
+
+import { fetchOperation } from "../../ducks/operations";
 
 import { operations } from "../../config/operationTypes";
 import { categories } from "../../config/categories";
@@ -30,6 +33,8 @@ const operationData = {
 };
 
 const CreateOperation = () => {
+    const dispatch = useDispatch();
+
     const priceRef = useRef();
     const commentRef = useRef();
 
@@ -66,7 +71,7 @@ const CreateOperation = () => {
 
     const confirmOperation = () => {
         if (validPrice && !!operationData.category && !!operationData.payment) {
-            console.log(operationData)
+            dispatch(fetchOperation(operationData));
         }
     }
 
