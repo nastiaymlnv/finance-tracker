@@ -1,5 +1,5 @@
 import {
-    fetchPostOperations,
+    getOperations,
     postOperation,
     operationRequestError,
     fetchPostOperation
@@ -8,7 +8,7 @@ import {
 import operationsReducer from "./operationsReducer";
 
 export {
-    fetchPostOperations,
+    getOperations,
     postOperation,
     operationRequestError,
     fetchPostOperation,

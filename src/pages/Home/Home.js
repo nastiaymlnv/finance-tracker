@@ -3,9 +3,13 @@ import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector, useStore } from 'react-redux';
 
-import { fetchOperations } from "../../ducks/operations";
+import { getOperations } from "../../ducks/operations";
 
 import AddBtn from "../../components/AddBtn/AddBtn";
+
+import Typography from "@mui/material/Typography";
+import List from '@mui/material/List';
+import ListItemText from '@mui/material/ListItemText';
 
 const Home = () => {
     const store = useStore();
@@ -24,7 +28,7 @@ const Home = () => {
             if (response.ok) {
                 const results = await response.json();
                 setOperationsList(results);
-                dispatch(fetchOperations(results));
+                dispatch(getOperations(results));
             }
         }
         catch {
@@ -35,16 +39,16 @@ const Home = () => {
 
     return (
         <div style={{height: '100vh'}}>
-            <h1> Home page </h1>
-            <ul>
+            <Typography variant="h1" sx={{ fontSize: '1.5rem' }}> Home page </Typography>
+            <List>
                 {
                 operationsList.map(item => {
                     return (
-                        <li key={item.id}> {item.type}, {item.category}, {item.price} </li>
+                        <ListItemText key={item.id}> {item.type}, {item.category}, {item.price} </ListItemText>
                     )
                 })
                 }
-            </ul>
+            </List>
             <Link to={'operation'}>
                 <AddBtn />
             </Link>

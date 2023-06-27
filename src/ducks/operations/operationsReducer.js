@@ -1,12 +1,12 @@
 import {
-    FETCH_OPERATIONS,
+    GET_OPERATIONS,
     POST_OPERATION,
     OPERATION_REQUEST_ERROR
 } from "./operationsAction";
 
 const operationsReducer = (state=[], action) => {
     switch(action.type) {
-        case FETCH_OPERATIONS:
+        case GET_OPERATIONS:
             return action.operations;
         case POST_OPERATION:
             return {

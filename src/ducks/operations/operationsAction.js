@@ -1,13 +1,13 @@
 import axios from 'axios';
 import store from '../../store';
 
-export const FETCH_OPERATIONS = "FETCH_OPERATIONS";
+export const GET_OPERATIONS = "GET_OPERATIONS";
 export const POST_OPERATION = "POST_OPERATION";
 export const OPERATION_REQUEST_ERROR = "OPERATION_REQUEST_ERROR";
 
-export const fetchPostOperations = (operations) => {
+export const getOperations = (operations) => {
     return {
-        type: FETCH_OPERATIONS,
+        type: GET_OPERATIONS,
         operations
     }
 }
@@ -40,3 +40,18 @@ export const fetchPostOperation = (operationData) => {
             });
     }
 }
+
+// export const fetchOperations = (operationData) => {
+//     return dispatch => {
+//         axios
+//             .post(`http://localhost:3001/operations`, operationData)
+//             .then(res => {
+//                 alert('Operation added successfully');
+//                 dispatch(postOperation(res));
+//             })
+//             .catch(error => {
+//                 alert(error.response.data.message);
+//                 dispatch(operationRequestError(error.response));
+//             });
+//     }
+// }

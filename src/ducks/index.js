@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 
-import fetchPostOperationsReducer from "./operations/operationsReducer";
+import getOperationsReducer from "./operations/operationsReducer";
 
 const reducers = combineReducers ({
-    operations: fetchPostOperationsReducer
+    operations: getOperationsReducer
 });
 
 export default reducers;

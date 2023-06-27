@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
-import { fetchOperation } from "../../ducks/operations";
+import { postOperation } from "../../ducks/operations";
 
 import { operations } from "../../config/operationTypes";
 import { categories } from "../../config/categories";
@@ -71,7 +71,7 @@ const CreateOperation = () => {
 
     const confirmOperation = () => {
         if (validPrice && !!operationData.category && !!operationData.payment) {
-            dispatch(fetchOperation(operationData));
+            dispatch(postOperation(operationData));
         }
     }
 
