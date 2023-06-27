@@ -30,7 +30,7 @@ const operationData = {
     id: uuidv4(),
     type: 'Expense',
     price: null,
-    category: null, 
+    category: null,
     date: Date(),
     payment: null,
     fromAccount: null,
@@ -67,7 +67,7 @@ const CreateOperation = () => {
     const handleCategory = (e) => operationData.category = e.target.value;
 
     const handleDate = (e) => operationData.date = e.target.value;
-
+    
     const handlePayment = (e) => operationData.payment = e.target.value;
 
     const handleTransferFrom = (e) => operationData.fromAccount = e.target.value;

@@ -7,6 +7,8 @@ import { getOperations } from "../../ducks/operations";
 
 import AddBtn from "../../components/AddBtn/AddBtn";
 
+import { dayNames, monthNames } from "../../config/dateItemsNames";
+
 import Typography from "@mui/material/Typography";
 import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
@@ -27,8 +29,9 @@ const Home = () => {
             const response = await fetch('http://localhost:3001/operations');
             if (response.ok) {
                 const results = await response.json();
-                setOperationsList(results);
-                dispatch(getOperations(results));
+                const sortedEvents = results.slice().sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+                setOperationsList(sortedEvents);
+                dispatch(getOperations(sortedEvents));
             }
         }
         catch {
@@ -43,11 +46,16 @@ const Home = () => {
             <List>
                 {
                 operationsList.map(item => {
+                    let time = new Date(item.date);
+                    let day = time.getDate();
+                    let week = dayNames[time.getDay()];
+                    let month = monthNames[time.getMonth()];
+                    let year = time.getFullYear();
                     return (
                         item.type !== 'Transfer' ?
-                            <ListItemText key={item.id}> {item.type}, {item.category}, {item.price} </ListItemText>
+                            <ListItemText key={item.id}> {day}, {week}, {month}, {year}, {item.type}, {item.category}, {item.price} </ListItemText>
                         :
-                            <ListItemText key={item.id}> {item.type}, {item.price}, {item.fromAccount}, {item.toAccount} </ListItemText>
+                            <ListItemText key={item.id}> {day}, {week}, {month}, {year}, {item.price}, {item.fromAccount}, {item.toAccount} </ListItemText>
                     )
                 })
                 }

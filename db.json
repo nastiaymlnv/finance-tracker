@@ -1,33 +1,6 @@
 {
   "operations": [
     {
-      "id": "testId1",
-      "type": "Expense",
-      "price": 30,
-      "category": "Products",
-      "date": "09.05.2023",
-      "payment": "Card",
-      "comment": "comment"
-    },
-    {
-      "id": "testId2",
-      "type": "Expense",
-      "price": 20,
-      "category": "Products",
-      "date": "09.05.2023",
-      "payment": "Cash",
-      "comment": null
-    },
-    {
-      "id": "testId3",
-      "type": "Expense",
-      "price": 10,
-      "category": "Products",
-      "date": "09.05.2023",
-      "payment": "Card",
-      "comment": "comment"
-    },
-    {
       "id": "67da88cc-df50-413b-a3c4-37ff02c0f886",
       "type": "Expense",
       "price": "34",
@@ -143,6 +116,39 @@
       "payment": null,
       "fromAccount": "Cash",
       "toAccount": "Card",
+      "comment": null
+    },
+    {
+      "id": "d75be3bc-41f2-4d94-916f-f94249c558a0",
+      "type": "Expense",
+      "price": "2312324234234",
+      "category": "Education",
+      "date": "Tue Jun 27 2023 16:10:22 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Card",
+      "fromAccount": null,
+      "toAccount": null,
+      "comment": null
+    },
+    {
+      "id": "076fc143-6a19-4b89-a2f8-f5170ca3e5e7",
+      "type": "Expense",
+      "price": "123124",
+      "category": "Gifts",
+      "date": "Tue Jun 27 2023 16:12:56 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Cash",
+      "fromAccount": null,
+      "toAccount": null,
+      "comment": null
+    },
+    {
+      "id": "1d22b3f8-c3c4-4734-b685-8bc97575b720",
+      "type": "Expense",
+      "price": "1134234235434",
+      "category": "Health",
+      "date": "Sun Jun 04 2023 03:00:00 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Cash",
+      "fromAccount": null,
+      "toAccount": null,
       "comment": null
     }
   ]
