@@ -31,11 +31,11 @@ export const fetchPostOperation = (operationData) => {
         axios
             .post(`http://localhost:3001/operations`, operationData)
             .then(res => {
-                alert('Operation added successfully');
+                console.log('Operation added successfully');
                 dispatch(postOperation(res));
             })
             .catch(error => {
-                alert(error.response.data.message);
+                console.log(error.response.data.message);
                 dispatch(operationRequestError(error.response));
             });
     }

@@ -55,6 +55,25 @@ export const OperationDate = styled.input`
     ${Input};
 `;
 
+export const TransferContainer = styled.section`
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+`;
+
+export const TransferAccountContainer = styled.section`
+    width: 100%;
+`;
+
+export const TransferLabel = styled.p`
+
+`;
+
+export const TransferPaymentMethod = styled.select`
+    ${Input};
+    width: 100%;
+`;
+
 export const OperationPaymentMethod = styled.select`
     ${Input};
 `;

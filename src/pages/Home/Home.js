@@ -44,7 +44,10 @@ const Home = () => {
                 {
                 operationsList.map(item => {
                     return (
-                        <ListItemText key={item.id}> {item.type}, {item.category}, {item.price} </ListItemText>
+                        item.type !== 'Transfer' ?
+                            <ListItemText key={item.id}> {item.type}, {item.category}, {item.price} </ListItemText>
+                        :
+                            <ListItemText key={item.id}> {item.type}, {item.price}, {item.fromAccount}, {item.toAccount} </ListItemText>
                     )
                 })
                 }

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
-import { postOperation } from "../../ducks/operations";
+import { fetchPostOperation } from "../../ducks/operations";
 
 import { operations } from "../../config/operationTypes";
 import { categories } from "../../config/categories";
@@ -18,6 +18,10 @@ import { OperationContainer,
     OperationPrice,
     OperationCategory,
     OperationDate,
+    TransferContainer,
+    TransferAccountContainer,
+    TransferLabel,
+    TransferPaymentMethod,
     OperationPaymentMethod,
     OperationComment
 } from "./CreateOperation.style";
@@ -26,9 +30,11 @@ const operationData = {
     id: uuidv4(),
     type: 'Expense',
     price: null,
-    category: null,
+    category: null, 
     date: Date(),
     payment: null,
+    fromAccount: null,
+    toAccount: null,
     comment: null
 };
 
@@ -64,14 +70,25 @@ const CreateOperation = () => {
 
     const handlePayment = (e) => operationData.payment = e.target.value;
 
+    const handleTransferFrom = (e) => operationData.fromAccount = e.target.value;
+
+    const handleTransferTo= (e) => operationData.toAccount = e.target.value;
+
     const checkComment = () => {
         const comment = commentRef.current.value;
         operationData.comment = comment;
     }
 
     const confirmOperation = () => {
-        if (validPrice && !!operationData.category && !!operationData.payment) {
-            dispatch(postOperation(operationData));
+        if (operationData.type !== 'Transfer') {
+            if (validPrice && !!operationData.category && !!operationData.payment) {
+                dispatch(fetchPostOperation(operationData));
+            }
+        } else {
+            if (validPrice && !!operationData.fromAccount && !!operationData.toAccount &&
+                JSON.stringify(operationData.fromAccount) !== JSON.stringify(operationData.toAccount)) {
+                dispatch(fetchPostOperation(operationData));
+            }
         }
     }
 
@@ -111,7 +128,7 @@ const CreateOperation = () => {
                     onChange={checkPrice}
                     valid={validPrice}
                 />
-                <OperationCategory id="category" onChange={handleCategory}>
+                <OperationCategory id="category" onChange={handleCategory} hidden={selectedOperation === "Transfer" && true}>
                     <option selected disabled hidden> Category </option>
                     {
                         categories.map(category => {
@@ -129,11 +146,45 @@ const CreateOperation = () => {
                     id="date"
                     onChange={handleDate}
                 />
-                <OperationPaymentMethod onChange={handlePayment}>
-                    <option selected disabled hidden> Payment method </option>
-                    <option> Card </option>
-                    <option> Cash </option>
-                </OperationPaymentMethod>
+                {
+                    selectedOperation === "Transfer"
+                    ?
+                    <TransferContainer>
+                        <TransferAccountContainer>
+                            <TransferLabel htmlFor="date">
+                                From the account
+                            </TransferLabel>
+                            <TransferPaymentMethod onChange={handleTransferFrom}>
+                                <option selected disabled hidden>
+                                    From
+                                </option>
+                                <option> Card </option>
+                                <option> Cash </option>
+                            </TransferPaymentMethod>
+                        </TransferAccountContainer>
+                        <TransferAccountContainer>
+                            <TransferLabel htmlFor="date">
+                                To the account
+                            </TransferLabel>
+                            <TransferPaymentMethod onChange={handleTransferTo}>
+                                <option selected disabled hidden>
+                                    To
+                                </option>
+                                <option> Card </option>
+                                <option> Cash </option>
+                            </TransferPaymentMethod>
+                        </TransferAccountContainer>
+                    </TransferContainer>
+                    :
+                    <OperationPaymentMethod onChange={handlePayment}>
+                        <option selected disabled hidden>
+                            {selectedOperation === "Expense" && "Payment method"}
+                            {selectedOperation === "Income" && "Payer"}
+                        </option>
+                        <option> Card </option>
+                        <option> Cash </option>
+                    </OperationPaymentMethod>
+                }
                 <OperationLabel htmlFor="comment">
                     Comment
                 </OperationLabel>
