@@ -156,13 +156,12 @@ const CreateOperation = () => {
                 gap: '15px'
             }}>
                 <TextField
+                    type='number'
                     id='price'
                     label="Price"
                     value={price}
                     InputProps={{
-                        endAdornment: <InputAdornment position="end"> UAH </InputAdornment>,
-                        inputMode: 'numeric',
-                        pattern: '[0-9]*'
+                        endAdornment: <InputAdornment position="end"> UAH </InputAdornment>
                     }}
                     onChange={checkPrice}
                     valid={validPrice}
