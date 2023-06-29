@@ -150,6 +150,50 @@
       "fromAccount": null,
       "toAccount": null,
       "comment": null
+    },
+    {
+      "id": "9b195388-1da4-4e08-894d-4da76250910c",
+      "type": "Expense",
+      "price": "00000",
+      "category": "Gifts",
+      "date": "2023-05-31T21:00:00.000Z",
+      "payment": "Card",
+      "fromAccount": null,
+      "toAccount": null,
+      "comment": null
+    },
+    {
+      "id": "2fc89bd4-4306-42b8-b918-79654d96a3c1",
+      "type": "Transfer",
+      "price": "01",
+      "category": null,
+      "date": "2023-06-27T21:00:00.000Z",
+      "payment": null,
+      "fromAccount": "Card",
+      "toAccount": "Cash",
+      "comment": null
+    },
+    {
+      "id": "e3d2ecb2-6928-4635-ae9c-6f26fa4d1f94",
+      "type": "Transfer",
+      "price": "111",
+      "category": null,
+      "date": "2023-06-29T21:00:00.000Z",
+      "payment": null,
+      "fromAccount": "Cash",
+      "toAccount": "Card",
+      "comment": null
+    },
+    {
+      "id": "e4098d3d-d7c9-4236-b43e-14a3993d8e71",
+      "type": "Expense",
+      "price": "12345",
+      "category": "Payments",
+      "date": "2023-06-29T21:00:00.000Z",
+      "payment": "Card",
+      "fromAccount": null,
+      "toAccount": null,
+      "comment": null
     }
   ]
 }

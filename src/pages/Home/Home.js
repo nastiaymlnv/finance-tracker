@@ -55,7 +55,7 @@ const Home = () => {
                         item.type !== 'Transfer' ?
                             <ListItemText key={item.id}> {day}, {week}, {month}, {year}, {item.type}, {item.category}, {item.price} </ListItemText>
                         :
-                            <ListItemText key={item.id}> {day}, {week}, {month}, {year}, {item.price}, {item.fromAccount}, {item.toAccount} </ListItemText>
+                            <ListItemText key={item.id}> {day}, {week}, {month}, {year}, {item.type}, {item.price}, {item.fromAccount}, {item.toAccount} </ListItemText>
                     )
                 })
                 }
