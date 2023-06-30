@@ -112,7 +112,7 @@ const CreateOperation = () => {
                 <AppBar position="static">
                     <Toolbar  sx={{justifyContent: 'space-between'}}>
                         <Button variant="text" color='inherit'>
-                            <Link to={'/'}>
+                            <Link to={'/finance-tracker'}>
                                 Cancel
                             </Link>
                         </Button>
@@ -142,7 +142,7 @@ const CreateOperation = () => {
                         }
                         </Select>
                         <Button variant="text" color='inherit' onClick={confirmOperation}>
-                            <Link to={'/'}>
+                            <Link to={'/finance-tracker'}>
                                 Done
                             </Link>
                         </Button>

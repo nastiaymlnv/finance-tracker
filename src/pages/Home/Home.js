@@ -60,7 +60,7 @@ const Home = () => {
                 })
                 }
             </List>
-            <Link to={'operation'}>
+            <Link to={'/operation'}>
                 <AddBtn />
             </Link>
         </div>

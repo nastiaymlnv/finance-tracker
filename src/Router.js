@@ -10,7 +10,7 @@ import CreateOperation from "./pages/CreateOperation";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: "/finance-tracker",
         element: <Home />,
         errorElement: <ErrorPage />
     },
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />
     },
     {
-        path: "operation",
+        path: "/operation",
         element: <CreateOperation />,
         errorElement: <ErrorPage />
     }
