@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/finance-tracker/static/css/main.1abb3bd1.css",
-    "main.js": "/finance-tracker/static/js/main.12bd5955.js",
+    "main.js": "/finance-tracker/static/js/main.85604a85.js",
     "static/media/roboto-latin-500-normal.woff2": "/finance-tracker/static/media/roboto-latin-500-normal.f25d774ecfe0996f8eb5.woff2",
     "static/media/roboto-latin-700-normal.woff2": "/finance-tracker/static/media/roboto-latin-700-normal.227c93190fe7f82de3f8.woff2",
     "static/media/roboto-latin-400-normal.woff2": "/finance-tracker/static/media/roboto-latin-400-normal.b009a76ad6afe4ebd301.woff2",
@@ -60,10 +60,10 @@
     "static/media/roboto-greek-ext-700-normal.woff": "/finance-tracker/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "index.html": "/finance-tracker/index.html",
     "main.1abb3bd1.css.map": "/finance-tracker/static/css/main.1abb3bd1.css.map",
-    "main.12bd5955.js.map": "/finance-tracker/static/js/main.12bd5955.js.map"
+    "main.85604a85.js.map": "/finance-tracker/static/js/main.85604a85.js.map"
   },
   "entrypoints": [
     "static/css/main.1abb3bd1.css",
-    "static/js/main.12bd5955.js"
+    "static/js/main.85604a85.js"
   ]
 }
