@@ -194,6 +194,18 @@
       "fromAccount": null,
       "toAccount": null,
       "comment": null
+    },
+    {
+      "id": "bc6c0449-aedb-4a57-932d-aee92a6a4782",
+      "type": "Expense",
+      "price": "111222333444",
+      "category": "Payments",
+      "date": "2023-06-30T16:12:03.000Z",
+      "payment": "Card",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": null,
+      "comment": null
     }
   ]
 }
