@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
+import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
@@ -31,6 +32,7 @@ const operationData = {
     payment: null,
     fromAccount: null,
     toAccount: null,
+    paymentPlace: null,
     comment: null
 };
 
@@ -41,9 +43,11 @@ const CreateOperation = () => {
     const [price, setPrice] = useState(null);
     const [validPrice, setValidPrice] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState('');
+    const [defaultDate, setDefaultDate] = useState(Date());
     const [selectedAccount, setSelectedAccount] = useState('');
     const [selectedTransferFrom, setSelectedTransferFrom] = useState('');
     const [selectedTransferTo, setSelectedTransferTo] = useState('');
+    const [paymentPlace, setPaymentPlace] = useState(null);
     const [commentValue, setCommentValue] = useState(null);
 
     const handleOperationType = (e) => {
@@ -69,6 +73,7 @@ const CreateOperation = () => {
     }
 
     const handleDate = (date) => {
+        setDefaultDate(date);
         operationData.date = date;
     }
 
@@ -85,6 +90,12 @@ const CreateOperation = () => {
     const handleTransferTo = (e) => {
         setSelectedTransferTo(e.target.value);
         operationData.toAccount = e.target.value;
+    }
+
+    const handlePaymentPlace = (e) => {
+        const paymentPlace = e.target.value;
+        setPaymentPlace(paymentPlace);
+        operationData.paymentPlace = paymentPlace;
     }
 
     const checkComment = (e) => {
@@ -192,6 +203,7 @@ const CreateOperation = () => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                         labelId="date"
+                        defaultValue={dayjs(Date())}
                         onChange={handleDate}
                     />
                 </LocalizationProvider>
@@ -235,22 +247,29 @@ const CreateOperation = () => {
                         </FormControl>
                     </Box>
                     :
-                    <FormControl fullWidth>
-                        <InputLabel id="select-account-label">
-                            {selectedOperation === "Expense" && "Payment method"}
-                            {selectedOperation === "Income" && "Payer"}
-                        </InputLabel>
-                        <Select
-                            labelId="select-account-label"
-                            id="select-account"
-                            value={selectedAccount}
-                            label="Account"
-                            onChange={handlePayment}
-                        >
-                            <MenuItem value='Card'> Card </MenuItem>
-                            <MenuItem value='Cash'> Cash </MenuItem>
-                        </Select>
-                    </FormControl>
+                    <>
+                        <FormControl fullWidth>
+                            <InputLabel id="select-account-label">
+                                Payment account
+                            </InputLabel>
+                            <Select
+                                labelId="select-account-label"
+                                id="select-account"
+                                value={selectedAccount}
+                                label="Account"
+                                onChange={handlePayment}
+                            >
+                                <MenuItem value='Card'> Card </MenuItem>
+                                <MenuItem value='Cash'> Cash </MenuItem>
+                            </Select>
+                        </FormControl>
+                        <TextField
+                            id='payment-place'
+                            label={selectedOperation === "Expense"? "Place of payment" : "Payer"}
+                            value={paymentPlace}
+                            onChange={handlePaymentPlace}
+                        />
+                    </>
                 }
                 <TextField
                     id='comment'
