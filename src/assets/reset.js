@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
     html, body, div, span, applet, object, iframe,
@@ -117,4 +117,4 @@ export default createGlobalStyle`
     :where([draggable="true"]) {
         -webkit-user-drag: element;
     }
-`
+`;

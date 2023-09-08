@@ -5,15 +5,17 @@ import thunk from "redux-thunk";
 import reducers from "./ducks";
 
 const getInitialStore = () => {
-    return {
-        operations: {},
-    }
-}
+  return {
+    operations: {},
+  };
+};
 
 export const store = legacy_createStore(
-    reducers,
-    getInitialStore(),
-    composeWithDevTools(applyMiddleware(thunk))
+  reducers,
+  getInitialStore(),
+  composeWithDevTools(applyMiddleware(thunk)),
 );
+
+store.subscribe(() => console.log(store.getState()));
 
 export default store;

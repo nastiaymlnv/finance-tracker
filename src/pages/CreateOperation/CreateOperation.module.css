@@ -1,0 +1,17 @@
+.Create-operation-select {
+  color: inherit;
+  & .MuiOutlinedInput-notchedOutline {
+    border-color: inherit;
+  }
+
+  & .MuiSvgIcon-root {
+    color: white;
+  }
+}
+
+.Create-operation-inputs {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  gap: 15px;
+}
