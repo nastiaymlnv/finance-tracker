@@ -290,6 +290,18 @@
       "toAccount": null,
       "paymentPlace": null,
       "comment": null
+    },
+    {
+      "id": "07bd0346-97b9-4564-a4c2-396eff9947b3",
+      "type": "Expense",
+      "price": "123",
+      "category": "Gifts",
+      "date": "Fri Sep 08 2023 17:16:11 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Cash",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": null,
+      "comment": null
     }
   ]
 }

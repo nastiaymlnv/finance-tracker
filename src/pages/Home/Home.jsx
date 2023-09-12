@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { Typography, List, ListItemText } from "@mui/material";
+import cn from "classnames";
+import { Typography, List, ListItem, ListItemText } from "@mui/material";
 
 import { getOperations } from "../../ducks/operations";
 
 import AddBtn from "../../components/AddBtn/AddBtn";
 
-import { dayNames, monthNames } from "./dateItemsNames";
+import { monthNames } from "./dateItemsNames";
 
+import css from "./Home.module.css";
 const Home = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [operationsList, setOperationsList] = useState([]);
 
@@ -37,34 +40,57 @@ const Home = () => {
         }
     };
 
+    const handleItemClick = (transactionId) => {
+        console.log(transactionId);
+        
+        navigate(`/bills/${transactionId}`);
+    }
+
     return (
-        <div style={{ height: "100vh" }}>
+        <div style={{ height: "100vh" }} className={css["Home-container"]}>
             <Typography variant="h1" sx={{ fontSize: "1.5rem" }}>
                 Home page
             </Typography>
-            <List>
+            <List className={css["Operation-list"]}>
                 {operationsList.map((item) => {
                     const time = new Date(item.date);
                     const day = time.getDate();
-                    const week = dayNames[time.getDay()];
                     const month = monthNames[time.getMonth()];
                     const year = time.getFullYear();
 
-                    return item.type !== "Transfer" ? (
-                        <ListItemText key={item.id}>
-                            {day}, {week}, {month}, {year}, {item.type}, {item.category},{" "}
-                            {item.price}
+                    return <ListItem key={item.id} className={css["Operation-list__item"]} onClick={() => handleItemClick(item.id)}>
+                        {item.type !== "Transfer" ?
+                            <ListItemText className={css["Operation-list__item-info"]}>
+                                <div className={css["Operation-list__item-title"]}> {item.category} </div>
+                                <div> {item.payment} </div>
+                                <div> {item.comment} </div>
+                            </ListItemText>
+                            :
+                            <ListItemText className={css["Operation-list__item-info"]}>
+                                <div className={css["Operation-list__item-title"]}> {item.type} </div>
+                                <div>
+                                    {`${item.fromAccount} `}
+                                    &#8594;
+                                    {` ${item.toAccount}`}
+                                </div>
+                                <div> {item.comment} </div>
+                            </ListItemText>
+                        }
+                        <ListItemText className={css["Operation-list__item-date-price"]}>
+                            <div className={cn(css["Operation-list__item-price"], item.type !== "Income" ? css["Operation-list__item-price_red"] : css["Operation-list__item-price_green"])}>
+                                {item.type !== "Income" ? `-${item.price} UAH` : `${item.price} UAH`}
+                            </div>
+                            <div className={css["Operation-list__item-date"]}>
+                                {day} {month} {year}
+                            </div>
                         </ListItemText>
-                    ) : (
-                        <ListItemText key={item.id}>
-                            {day}, {week}, {month}, {year}, {item.type}, {item.price},{" "}
-                            {item.fromAccount}, {item.toAccount}
-                        </ListItemText>
-                    );
+                    </ListItem>
                 })}
             </List>
             <Link to={"/operation"}>
-                <AddBtn />
+                <div style={{ "position": "fixed", "bottom": "20px", "right": "20px" }}>
+                    <AddBtn />
+                </div>
             </Link>
         </div>
     );

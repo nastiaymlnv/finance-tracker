@@ -1,0 +1,53 @@
+.Home-container {
+    margin: 20px 10px;
+}
+
+.Operation-list {
+
+}
+
+.Operation-list__item {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid rgb(0, 0, 0, 0.3);
+    border-radius: 5px;
+
+    &:last-child {
+        margin-bottom: 20px;
+    }
+}
+
+.Operation-list__item-info {
+    width: fit-content;
+}
+
+.Operation-list__item-title {
+    font-weight: 500;
+}
+
+.Operation-list__item-date-price {
+    display: flex;
+    flex-direction: column;
+    margin-right: 0;
+    width: fit-content;
+    text-align: right;
+}
+
+.Operation-list__item-date {
+    font-size: 0.9em;
+}
+
+.Operation-list__item-price {
+    font-weight: 500;
+}
+
+.Operation-list__item-price_red {
+    color: red;
+}
+
+.Operation-list__item-price_green {
+    color: green;
+}

@@ -15,7 +15,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "bills",
+    path: "/home",
+    element: <Home />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "bills/:transactionId",
     element: <Bills />,
     errorElement: <ErrorPage />,
   },

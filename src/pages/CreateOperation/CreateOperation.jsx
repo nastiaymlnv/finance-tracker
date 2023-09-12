@@ -171,8 +171,7 @@ const CreateOperation = () => {
                         >
                             {categories.map((category, index) => (
                                 <MenuItem key={index} value={category}>
-                                    {" "}
-                                    {category}{" "}
+                                    {category}
                                 </MenuItem>
                             ))}
                         </Select>
