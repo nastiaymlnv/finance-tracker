@@ -1,1 +1,1 @@
-export const operations = ["Expense", "Income", "Transfer"];
+export const operationTypes = ["Expense", "Income", "Transfer"];

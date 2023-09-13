@@ -19,14 +19,19 @@ const router = createBrowserRouter([
     element: <Home />,
     errorElement: <ErrorPage />,
   },
-  {
-    path: "bills/:transactionId",
-    element: <Bills />,
-    errorElement: <ErrorPage />,
-  },
+  // {
+  //   path: "bills/:transactionId",
+  //   element: <Bills />,
+  //   errorElement: <ErrorPage />,
+  // },
   {
     path: "analytics",
     element: <Analytics />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/operation/:transactionId",
+    element: <CreateOperation />,
     errorElement: <ErrorPage />,
   },
   {

@@ -302,6 +302,30 @@
       "toAccount": null,
       "paymentPlace": null,
       "comment": null
+    },
+    {
+      "id": "ebfe6f56-9e13-4601-9c1b-4b5007bbada7",
+      "type": "Expense",
+      "price": "1",
+      "category": "Transport",
+      "date": "Wed Sep 13 2023 14:58:46 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Card",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": "",
+      "comment": ""
+    },
+    {
+      "id": "f299f4bf-825e-4900-b1ed-5f3c1de26389",
+      "type": "Expense",
+      "price": "211",
+      "category": "Gifts",
+      "date": "Wed Sep 13 2023 15:11:20 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Cash",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": "",
+      "comment": ""
     }
   ]
 }

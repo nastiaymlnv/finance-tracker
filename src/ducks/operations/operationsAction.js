@@ -1,37 +1,58 @@
 import axios from "axios";
 
-export const GET_OPERATIONS = "GET_OPERATIONS";
-export const POST_OPERATION = "POST_OPERATION";
-export const OPERATION_REQUEST_ERROR = "OPERATION_REQUEST_ERROR";
+export const GET_TRANSACTIONS = "GET_TRANSACTIONS";
+export const POST_TRANSACTION = "POST_TRANSACTION";
+export const UPDATE_TRANSACTION = "UPDATE_TRANSACTION";
+export const TRANSACTION_REQUEST_ERROR = "TRANSACTION_REQUEST_ERROR";
 
-export const getOperations = (operations) => {
+export const getOperations = (data) => {
     return {
-        type: GET_OPERATIONS,
-        payload: operations,
+        type: GET_TRANSACTIONS,
+        payload: data,
     };
 };
 
-export const postOperation = (operation) => {
+export const postOperation = (data) => {
     return {
-        type: POST_OPERATION,
-        payload: operation,
+        type: POST_TRANSACTION,
+        payload: data,
+    };
+};
+
+export const updateTransaction = (data) => {
+    return {
+        type: UPDATE_TRANSACTION,
+        payload: data,
     };
 };
 
 export const operationRequestError = (error) => {
     return {
-        type: OPERATION_REQUEST_ERROR,
+        type: TRANSACTION_REQUEST_ERROR,
         payload: error.data,
     };
 };
 
-export const fetchPostOperation = (operationData) => {
+export const fetchPostNewTransaction = (operationData) => {
     return (dispatch) => {
         axios
             .post(`http://localhost:3001/operations`, operationData)
             .then((res) => {
-                console.log("Operation added successfully");
                 dispatch(postOperation(res));
+            })
+            .catch((error) => {
+                console.log(error.response.data.message);
+                dispatch(operationRequestError(error.response));
+            });
+    };
+};
+
+export const fetchUpdateTransaction = (operationData) => {
+    return (dispatch) => {
+        axios
+            .put(`http://localhost:3001/operations/${operationData.id}`, operationData)
+            .then((res) => {
+                dispatch(updateTransaction(res));
             })
             .catch((error) => {
                 console.log(error.response.data.message);

@@ -41,9 +41,7 @@ const Home = () => {
     };
 
     const handleItemClick = (transactionId) => {
-        console.log(transactionId);
-        
-        navigate(`/bills/${transactionId}`);
+        navigate(`/operation/${transactionId}`);
     }
 
     return (
