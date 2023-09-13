@@ -60,7 +60,7 @@ const CreateOperation = () => {
 
     const handleOperationType = (e) => setSelectedOperation(e.target.value);
 
-    const checkPrice = (e) => e.target.value > 0 && setPrice(e.target.value);
+    const handlePrice = (e) => e.target.value > 0 && setPrice(e.target.value);
 
     const handleCategory = (e) => setSelectedCategory(e.target.value);
 
@@ -74,7 +74,7 @@ const CreateOperation = () => {
 
     const handlePaymentPlace = (e) => setPaymentPlace(e.target.value);
 
-    const checkComment = (e) => setCommentValue(e.target.value);
+    const handleComment = (e) => setCommentValue(e.target.value);
 
     const confirmOperation = () => {    
         operationData.type = selectedOperation;
@@ -123,7 +123,6 @@ const CreateOperation = () => {
                             <Link to={"/home"}> Cancel </Link>
                         </Button>
                         <Select
-                            variant="standard"
                             className={styles["Create-operation-select"]}
                             value={selectedOperation}
                             onChange={handleOperationType}
@@ -149,7 +148,7 @@ const CreateOperation = () => {
                     InputProps={{
                         endAdornment: <InputAdornment position="end"> UAH </InputAdornment>,
                     }}
-                    onChange={checkPrice}
+                    onChange={handlePrice}
                     required
                 />
                 <div hidden={selectedOperation === "Transfer" && true}>
@@ -223,7 +222,7 @@ const CreateOperation = () => {
                 <TextField
                     label="Comment"
                     value={commentValue}
-                    onChange={checkComment}
+                    onChange={handleComment}
                 />
             </Box>
         </form>

@@ -1,5 +1,13 @@
-.Home-container {
-    margin: 20px 10px;
+.Hamburger-menu {
+    position: absolute;
+    background-color: #1976d2;
+    color: #fff;
+    z-index: 1;
+    width: 50%;
+}
+
+.Home-content-container {
+    margin: 10px;
 }
 
 .Operation-list {

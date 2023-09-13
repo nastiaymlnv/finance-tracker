@@ -326,6 +326,42 @@
       "toAccount": null,
       "paymentPlace": "",
       "comment": ""
+    },
+    {
+      "id": "b3eb788b-291e-4e44-91b5-cb1a39753332",
+      "type": "Expense",
+      "price": "1",
+      "category": "Transport",
+      "date": "Wed Sep 13 2023 15:43:10 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Card",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": "",
+      "comment": ""
+    },
+    {
+      "id": "041c4c44-c878-4483-ba62-28393cb6dc93",
+      "type": "Expense",
+      "price": "2",
+      "category": "Education",
+      "date": "Wed Sep 13 2023 15:44:52 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Cash",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": "",
+      "comment": ""
+    },
+    {
+      "id": "e5a8ab7e-7495-4c83-b059-e958db4068fa",
+      "type": "Expense",
+      "price": "22",
+      "category": "Gifts",
+      "date": "Wed Sep 13 2023 15:45:22 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Card",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": "",
+      "comment": ""
     }
   ]
 }

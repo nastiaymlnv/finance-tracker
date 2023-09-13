@@ -14,8 +14,7 @@ const operationsReducer = (state = [], action) => {
         operations: [...state, action.payload],
       };
     case UPDATE_TRANSACTION: {
-      const id = action.payload.id;
-      const newState = state.filter((item) => item.id !== id);
+      const newState = state.filter((item) => item.id !== action.payload.id);
 
       return [...newState, action.payload]
     }
