@@ -1,4 +1,4 @@
-.Create-operation-select {
+.Select-list {
   color: inherit;
   & .MuiOutlinedInput-notchedOutline {
     border-color: inherit;
@@ -9,9 +9,13 @@
   }
 }
 
-.Create-operation-inputs {
+.Input-container {
   display: flex;
   flex-direction: column;
   padding: 20px 10px;
   gap: 15px;
+}
+
+.Input-field {
+  background-color: #fff;
 }

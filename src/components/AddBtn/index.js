@@ -1,3 +1,1 @@
-import AddBtn from "./AddBtn";
-
-export default AddBtn;
+export * from "./AddBtn";

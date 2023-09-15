@@ -1,44 +1,57 @@
 import React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
-import ErrorPage from "./error-page";
+import PropTypes from 'prop-types';
 
 import Home from "./pages/Home";
-import Bills from "./pages/Bills";
-import Analytics from "./pages/Analytics";
 import CreateOperation from "./pages/CreateOperation";
+import Analytics from "./pages/Analytics";
+import Accounts from "./pages/Accounts";
 
-const router = createBrowserRouter([
-  {
-    path: "/finance-tracker",
-    element: <Home />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/home",
-    element: <Home />,
-    errorElement: <ErrorPage />,
-  },
-  // {
-  //   path: "bills/:transactionId",
-  //   element: <Bills />,
-  //   errorElement: <ErrorPage />,
-  // },
-  {
-    path: "analytics",
-    element: <Analytics />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/operation/:transactionId",
-    element: <CreateOperation />,
-    errorElement: <ErrorPage />,
-  },
-  {
-    path: "/operation",
-    element: <CreateOperation />,
-    errorElement: <ErrorPage />,
-  },
-]);
+import { ErrorBoundary } from "./components/ErrorBoundary";
 
-export default router;
+const Router = ({setShowBottomNav}) => {
+  return <Routes>
+    <Route
+      index element={<Home setShowBottomNav={setShowBottomNav} />}
+      errorElement={<ErrorBoundary />}
+    />
+    <Route
+      path="/finance-tracker"
+      element={<Home setShowBottomNav={setShowBottomNav} />}
+      errorElement={<ErrorBoundary />}
+    />
+    <Route
+      path="/home"
+      element={<Home setShowBottomNav={setShowBottomNav}/>}
+      errorElement={<ErrorBoundary />}
+    />
+    <Route
+      path="/analytics"
+      element={<Analytics setShowBottomNav={setShowBottomNav} />}
+      errorElement={<ErrorBoundary />}
+    />
+    <Route
+      path="/operation"
+      element={<CreateOperation setShowBottomNav={setShowBottomNav} />}
+      errorElement={<ErrorBoundary />}>
+      <Route
+        path=":transactionId"
+        element={<CreateOperation />}
+        errorElement={<ErrorBoundary />}
+      />
+    </Route>
+    <Route
+      path="/accounts"
+      element={<Accounts setShowBottomNav={setShowBottomNav} />}
+      errorElement={<ErrorBoundary />}
+    />
+    <Route path="/*" element={<ErrorBoundary setShowBottomNav={setShowBottomNav} />} />
+  </Routes>
+}
+
+Router.propTypes = {
+  setShowBottomNav: PropTypes.func
+}
+
+export default Router;

@@ -3,33 +3,31 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import cn from "classnames";
-import { 
+import PropTypes from 'prop-types';
+import {
     AppBar,
     Toolbar,
-    IconButton,
     Box,
-    List, 
-    ListItem, 
+    List,
+    Card,
     ListItemText,
-    ListItemButton
 } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
 
 import { getOperations } from "../../ducks/operations";
 
-import AddBtn from "../../components/AddBtn/AddBtn";
+import { AddBtn } from "../../components";
 
 import { monthNames } from "./dateItemsNames";
 
 import css from "./Home.module.css";
-const Home = () => {
+
+const Home = ({setShowBottomNav}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    setShowBottomNav(true)
 
     const [operationsList, setOperationsList] = useState([]);
-    const [isHamburgerOpen, setIsHamburgerOpen] = useState(true);
-
+    
     useEffect(() => {
         fetchData();
     }, []);
@@ -41,51 +39,22 @@ const Home = () => {
             const sortedEvents = results
                 .slice()
                 .sort(
-                    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+                    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
                 );
             setOperationsList(sortedEvents);
             dispatch(getOperations(sortedEvents));
         }
     };
 
-    const handleItemClick = (transactionId) => navigate(`/operation/${transactionId}`);
-
-    const handleHamburgerClick = () => {
-        setIsHamburgerOpen(!isHamburgerOpen)
-    }
+    const handleItemClick = (transactionId) =>
+        navigate(`/operation/${transactionId}`);
 
     return (
         <>
             <AppBar position="static">
-                <Toolbar>
-                    <IconButton color="inherit" onClick={handleHamburgerClick}>
-                        { isHamburgerOpen ? <CloseIcon /> : <MenuIcon /> } 
-                    </IconButton>
-                </Toolbar>
+                <Toolbar></Toolbar>
             </AppBar>
-            {
-                isHamburgerOpen && 
-                <Box className={css["Hamburger-menu"]}>
-                    <List>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary="Home" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary="Analytics" />
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton>
-                                <ListItemText primary="Settings" />
-                            </ListItemButton>
-                        </ListItem>
-                        </List>
-                </Box>
-            }
-            <div style={{ height: "100vh" }} className={css["Home-content-container"]}>
+            <Box sx={{ height: "100vh" }} className={css["Home-content-container"]}>
                 <List className={css["Operation-list"]}>
                     {operationsList.map((item) => {
                         const time = new Date(item.date);
@@ -93,43 +62,84 @@ const Home = () => {
                         const month = monthNames[time.getMonth()];
                         const year = time.getFullYear();
 
-                        return <ListItem key={item.id} className={css["Operation-list__item"]} onClick={() => handleItemClick(item.id)}>
-                            {item.type !== "Transfer" ?
-                                <ListItemText className={css["Operation-list__item-info"]}>
-                                    <div className={css["Operation-list__item-title"]}> {item.category} </div>
-                                    <div> {item.payment} </div>
-                                    <div> {item.comment} </div>
-                                </ListItemText>
-                                :
-                                <ListItemText className={css["Operation-list__item-info"]}>
-                                    <div className={css["Operation-list__item-title"]}> {item.type} </div>
-                                    <div>
-                                        {`${item.fromAccount} `}
-                                        &#8594;
-                                        {` ${item.toAccount}`}
+                        return (
+                            <Card
+                                key={item.id}
+                                className={css["Operation-list__item"]}
+                                onClick={() => handleItemClick(item.id)}
+                            >
+                                {item.type !== "Transfer" ? (
+                                    <ListItemText className={css["Operation-list__item-info"]}>
+                                        <div className={css["Operation-list__item-title"]}>
+                                            {" "}
+                                            {item.category}{" "}
+                                        </div>
+                                        <div> {item.payment} </div>
+                                        <div> {item.comment} </div>
+                                    </ListItemText>
+                                ) : (
+                                    <ListItemText className={css["Operation-list__item-info"]}>
+                                        <div className={css["Operation-list__item-title"]}>
+                                            {" "}
+                                            {item.type}{" "}
+                                        </div>
+                                        <div>
+                                            {`${item.fromAccount} `}
+                                            &#8594;
+                                            {` ${item.toAccount}`}
+                                        </div>
+                                        <div> {item.comment} </div>
+                                    </ListItemText>
+                                )}
+                                <ListItemText
+                                    className={css["Operation-list__item-date-price"]}
+                                >
+                                    <div
+                                        className={cn(
+                                            css["Operation-list__item-price"],
+                                            item.type !== "Income"
+                                                ? css["Operation-list__item-price_red"]
+                                                : css["Operation-list__item-price_green"]
+                                        )}
+                                    >
+                                        {item.type !== "Income"
+                                            ? `-${item.price} UAH`
+                                            : `${item.price} UAH`}
                                     </div>
-                                    <div> {item.comment} </div>
+                                    <div className={css["Operation-list__item-date"]}>
+                                        {day} {month} {year}
+                                    </div>
                                 </ListItemText>
-                            }
-                            <ListItemText className={css["Operation-list__item-date-price"]}>
-                                <div className={cn(css["Operation-list__item-price"], item.type !== "Income" ? css["Operation-list__item-price_red"] : css["Operation-list__item-price_green"])}>
-                                    {item.type !== "Income" ? `-${item.price} UAH` : `${item.price} UAH`}
-                                </div>
-                                <div className={css["Operation-list__item-date"]}>
-                                    {day} {month} {year}
-                                </div>
-                            </ListItemText>
-                        </ListItem>
+                            </Card>
+                        );
                     })}
                 </List>
                 <Link to={"/operation"}>
-                    <div style={{ "position": "fixed", "bottom": "20px", "right": "20px" }}>
+                    <Box sx={{ position: "fixed", bottom: "70px", right: "20px" }}>
                         <AddBtn />
-                    </div>
+                    </Box>
                 </Link>
-            </div>
-    </>
+            </Box>
+            {/* <Paper sx={{ position: "fixed", bottom: 0, width: '100vw' }} elevation={5}>
+                <BottomNavigation
+                    showLabels
+                    value={selectedMenuItem}
+                    onChange={(event, newValue) => {
+                        setSelectedMenuItem(newValue);
+                    }}
+                >
+                    <BottomNavigationAction label="Transactions" icon={<ReceiptIcon />} />
+                    <BottomNavigationAction label="Accounts" icon={<GroupIcon />} />
+                    <BottomNavigationAction label="Analytics" icon={<BarChartIcon />} />
+                    <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
+                </BottomNavigation>
+            </Paper> */}
+        </>
     );
 };
+
+Home.propTypes = {
+    setShowBottomNav: PropTypes.func
+}
 
 export default Home;

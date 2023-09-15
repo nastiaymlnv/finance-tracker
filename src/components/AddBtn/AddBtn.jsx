@@ -3,7 +3,7 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 
-const AddBtn = () => {
+export const AddBtn = () => {
   return (
     <IconButton
       size="large"
@@ -14,5 +14,3 @@ const AddBtn = () => {
     </IconButton>
   );
 };
-
-export default AddBtn;

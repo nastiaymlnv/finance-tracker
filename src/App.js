@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { RouterProvider } from "react-router-dom";
-import GlobalStylesReset from "./assets/reset";
 
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import Router from "./Router";
 
-import router from "./Router";
+import { BottomNavBar } from "./components";
+
+import "./App.module.css";
 
 function App() {
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
+  const [showBottomNav, setShowBottomNav] = useState(true);
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -24,23 +22,24 @@ function App() {
     };
   }, []);
 
-  if (windowInnerWidth <= 480)
-    return (
-      <>
-        <GlobalStylesReset />
-        <RouterProvider router={router} />
-      </>
-    );
-  else
+  if (windowInnerWidth >= 560)
     return (
       <>
         <h1>
           This site is temporarily available only on mobile devices. {<br />}
           Please reopen this app via your mobile
         </h1>
-        <h2>Sorry for the inconvenience</h2>
       </>
-    );
+    )
+    else {
+      return (
+      <>
+        <Router setShowBottomNav={setShowBottomNav} />
+        {showBottomNav && <BottomNavBar />}
+      </>
+    )
+
+    }
 }
 
 export default App;

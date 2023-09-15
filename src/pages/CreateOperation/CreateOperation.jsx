@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from "uuid";
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -20,7 +21,10 @@ import {
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import { fetchPostNewTransaction, fetchUpdateTransaction } from "../../ducks/operations";
+import {
+    fetchPostNewTransaction,
+    fetchUpdateTransaction,
+} from "../../ducks/operations";
 
 import { operationTypes } from "./operationTypes";
 import { categories } from "./categories";
@@ -28,35 +32,55 @@ import { paymentAccounts } from "./paymentAccounts";
 
 import styles from "./CreateOperation.module.css";
 
-const CreateOperation = () => {
+const CreateOperation = ({setShowBottomNav}) => {
+    setShowBottomNav(false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { transactionId } = useParams();
-    const operationsList = useSelector(state => state.operations);
+    const operationsList = useSelector((state) => state.operations);
 
-    const currOperation = transactionId && operationsList.find((item) => item.id === transactionId);
-    const operationData = transactionId ? currOperation : {
-        id: uuidv4(),
-        type: "Expense",
-        price: null,
-        category: null,
-        date: Date(),
-        payment: null,
-        fromAccount: null,
-        toAccount: null,
-        paymentPlace: null,
-        comment: null,
-    };
+    const currOperation =
+        transactionId && operationsList.find((item) => item.id === transactionId);
+    const operationData = transactionId
+        ? currOperation
+        : {
+            id: uuidv4(),
+            type: "Expense",
+            price: null,
+            category: null,
+            date: Date(),
+            payment: null,
+            fromAccount: null,
+            toAccount: null,
+            paymentPlace: null,
+            comment: null,
+        };
 
-    const [selectedOperation, setSelectedOperation] = useState( transactionId ? currOperation.type : "Expense");
+    const [selectedOperation, setSelectedOperation] = useState(
+        transactionId ? currOperation.type : "Expense"
+    );
     const [price, setPrice] = useState(transactionId ? currOperation.price : "");
-    const [selectedCategory, setSelectedCategory] = useState(transactionId ? currOperation.category : "");
-    const [defaultDate, setDefaultDate] = useState(transactionId ? currOperation.date : Date());
-    const [selectedAccount, setSelectedAccount] = useState(transactionId ? currOperation.payment : "");
-    const [selectedTransferFrom, setSelectedTransferFrom] = useState(transactionId ? currOperation.fromAccount : "");
-    const [selectedTransferTo, setSelectedTransferTo] = useState(transactionId ? currOperation.toAccount : "");
-    const [paymentPlace, setPaymentPlace] = useState(transactionId ? currOperation.paymentPlace : "");
-    const [commentValue, setCommentValue] = useState(transactionId ? currOperation.comment : "");
+    const [selectedCategory, setSelectedCategory] = useState(
+        transactionId ? currOperation.category : ""
+    );
+    const [defaultDate, setDefaultDate] = useState(
+        transactionId ? currOperation.date : Date()
+    );
+    const [selectedAccount, setSelectedAccount] = useState(
+        transactionId ? currOperation.payment : ""
+    );
+    const [selectedTransferFrom, setSelectedTransferFrom] = useState(
+        transactionId ? currOperation.fromAccount : ""
+    );
+    const [selectedTransferTo, setSelectedTransferTo] = useState(
+        transactionId ? currOperation.toAccount : ""
+    );
+    const [paymentPlace, setPaymentPlace] = useState(
+        transactionId ? currOperation.paymentPlace : ""
+    );
+    const [commentValue, setCommentValue] = useState(
+        transactionId ? currOperation.comment : ""
+    );
 
     const handleOperationType = (e) => setSelectedOperation(e.target.value);
 
@@ -76,41 +100,44 @@ const CreateOperation = () => {
 
     const handleComment = (e) => setCommentValue(e.target.value);
 
-    const confirmOperation = () => {    
+    const confirmOperation = () => {
         operationData.type = selectedOperation;
         operationData.price = price;
         operationData.category = selectedCategory;
         operationData.date = defaultDate;
         operationData.paymentPlace = paymentPlace;
-        operationData.comment = commentValue;    
-        
+        operationData.comment = commentValue;
+
         if (!transactionId) {
             if (selectedOperation !== "Transfer") {
                 operationData.payment = selectedAccount;
 
                 if (!!price && !!selectedCategory && !!selectedAccount) {
                     dispatch(fetchPostNewTransaction(operationData));
-                    navigate('/home');
+                    navigate("/home");
                 }
-            }
-            else {
+            } else {
                 operationData.fromAccount = selectedTransferFrom;
                 operationData.toAccount = selectedTransferTo;
 
-                if (!!price && !!selectedTransferFrom && !!selectedTransferTo && selectedTransferFrom !== selectedTransferTo) {
+                if (
+                    !!price &&
+                    !!selectedTransferFrom &&
+                    !!selectedTransferTo &&
+                    selectedTransferFrom !== selectedTransferTo
+                ) {
                     dispatch(fetchPostNewTransaction(operationData));
-                    navigate('/home');
+                    navigate("/home");
                 }
             }
-        }
-        else {
+        } else {
             // todo: check if transaction data updated
             operationData.payment = selectedAccount;
             operationData.fromAccount = selectedTransferFrom;
-            operationData.toAccount = selectedTransferTo; 
-            
+            operationData.toAccount = selectedTransferTo;
+
             dispatch(fetchUpdateTransaction(operationData));
-            navigate('/home');
+            navigate("/home");
         }
     };
 
@@ -123,7 +150,7 @@ const CreateOperation = () => {
                             <Link to={"/home"}> Cancel </Link>
                         </Button>
                         <Select
-                            className={styles["Create-operation-select"]}
+                            className={styles["Select-list"]}
                             value={selectedOperation}
                             onChange={handleOperationType}
                             required
@@ -134,13 +161,18 @@ const CreateOperation = () => {
                                 </MenuItem>
                             ))}
                         </Select>
-                        <Button type="submit" variant="text" color="inherit" onClick={confirmOperation}>
+                        <Button
+                            type="submit"
+                            variant="text"
+                            color="inherit"
+                            onClick={confirmOperation}
+                        >
                             Done
                         </Button>
                     </Toolbar>
                 </AppBar>
             </Box>
-            <Box className={styles["Create-operation-inputs"]}>
+            <Box className={styles["Input-container"]}>
                 <TextField
                     type="number"
                     label="Price"
@@ -149,6 +181,7 @@ const CreateOperation = () => {
                         endAdornment: <InputAdornment position="end"> UAH </InputAdornment>,
                     }}
                     onChange={handlePrice}
+                    className={styles["Input-field"]}
                     required
                 />
                 <div hidden={selectedOperation === "Transfer" && true}>
@@ -158,6 +191,7 @@ const CreateOperation = () => {
                             value={selectedCategory}
                             onChange={handleCategory}
                             hidden={selectedOperation === "Transfer" && true}
+                            className={styles["Input-field"]}
                             required
                         >
                             {categories.map((category, index) => (
@@ -169,7 +203,11 @@ const CreateOperation = () => {
                     </FormControl>
                 </div>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker defaultValue={dayjs(Date())} onChange={handleDate} />
+                    <DatePicker
+                        defaultValue={dayjs(Date())}
+                        onChange={handleDate}
+                        className={styles["Input-field"]}
+                    />
                 </LocalizationProvider>
                 {selectedOperation === "Transfer" ? (
                     <Box
@@ -184,18 +222,30 @@ const CreateOperation = () => {
                             <Select
                                 value={selectedTransferFrom}
                                 onChange={handleTransferFrom}
+                                className={styles["Input-field"]}
                                 required
                             >
-                                { paymentAccounts.map((item, index) => (
-                                    <MenuItem key={index} value={item}> {item} </MenuItem>
+                                {paymentAccounts.map((item, index) => (
+                                    <MenuItem key={index} value={item}>
+                                        {" "}
+                                        {item}{" "}
+                                    </MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
                         <FormControl fullWidth>
                             <InputLabel>To the account</InputLabel>
-                            <Select value={selectedTransferTo} onChange={handleTransferTo} required> 
-                                { paymentAccounts.map((item, index) => (
-                                    <MenuItem key={index} value={item}> {item} </MenuItem>
+                            <Select
+                                value={selectedTransferTo}
+                                onChange={handleTransferTo}
+                                className={styles["Input-field"]}
+                                required
+                            >
+                                {paymentAccounts.map((item, index) => (
+                                    <MenuItem key={index} value={item}>
+                                        {" "}
+                                        {item}{" "}
+                                    </MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
@@ -204,9 +254,17 @@ const CreateOperation = () => {
                     <>
                         <FormControl fullWidth>
                             <InputLabel>Payment account</InputLabel>
-                            <Select value={selectedAccount} onChange={handlePayment} required>
-                                { paymentAccounts.map((item, index) => (
-                                    <MenuItem key={index} value={item}> {item} </MenuItem>
+                            <Select
+                                value={selectedAccount}
+                                onChange={handlePayment}
+                                className={styles["Input-field"]}
+                                required
+                            >
+                                {paymentAccounts.map((item, index) => (
+                                    <MenuItem key={index} value={item}>
+                                        {" "}
+                                        {item}{" "}
+                                    </MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
@@ -216,6 +274,7 @@ const CreateOperation = () => {
                             }
                             value={paymentPlace}
                             onChange={handlePaymentPlace}
+                            className={styles["Input-field"]}
                         />
                     </>
                 )}
@@ -223,10 +282,15 @@ const CreateOperation = () => {
                     label="Comment"
                     value={commentValue}
                     onChange={handleComment}
+                    className={styles["Input-field"]}
                 />
             </Box>
         </form>
     );
 };
+
+CreateOperation.propTypes = {
+    setShowBottomNav: PropTypes.func
+}
 
 export default CreateOperation;
