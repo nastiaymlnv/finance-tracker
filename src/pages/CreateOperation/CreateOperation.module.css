@@ -1,12 +1,5 @@
 .Select-list {
   color: inherit;
-  & .MuiOutlinedInput-notchedOutline {
-    border-color: inherit;
-  }
-
-  & .MuiSvgIcon-root {
-    color: white;
-  }
 }
 
 .Input-container {

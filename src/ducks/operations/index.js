@@ -3,6 +3,7 @@ import {
   postOperation,
   updateTransaction,
   operationRequestError,
+  fetchGetTransactions,
   fetchPostNewTransaction,
   fetchUpdateTransaction
 } from "./operationsAction";
@@ -14,6 +15,7 @@ export {
   postOperation,
   updateTransaction,
   operationRequestError,
+  fetchGetTransactions,
   fetchPostNewTransaction,
   fetchUpdateTransaction,
   operationsReducer

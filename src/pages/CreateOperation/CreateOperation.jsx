@@ -25,6 +25,7 @@ import {
     fetchPostNewTransaction,
     fetchUpdateTransaction,
 } from "../../ducks/operations";
+import { fetchSetBalance } from "../../ducks/balance";
 
 import { operationTypes } from "./operationTypes";
 import { categories } from "./categories";
@@ -38,6 +39,7 @@ const CreateOperation = ({setShowBottomNav}) => {
     const navigate = useNavigate();
     const { transactionId } = useParams();
     const operationsList = useSelector((state) => state.operations);
+    // const balance = useSelector((state) => state.balance);
 
     const currOperation =
         transactionId && operationsList.find((item) => item.id === transactionId);
@@ -114,6 +116,7 @@ const CreateOperation = ({setShowBottomNav}) => {
 
                 if (!!price && !!selectedCategory && !!selectedAccount) {
                     dispatch(fetchPostNewTransaction(operationData));
+                    // dispatch(fetchSetBalance(calculateBalance(operationData.type)))
                     navigate("/home");
                 }
             } else {
@@ -127,6 +130,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                     selectedTransferFrom !== selectedTransferTo
                 ) {
                     dispatch(fetchPostNewTransaction(operationData));
+                    // dispatch(fetchSetBalance(calculateBalance(operationData.type)))
                     navigate("/home");
                 }
             }
@@ -137,9 +141,20 @@ const CreateOperation = ({setShowBottomNav}) => {
             operationData.toAccount = selectedTransferTo;
 
             dispatch(fetchUpdateTransaction(operationData));
+            // dispatch(fetchSetBalance(calculateBalance(operationData.type)))
             navigate("/home");
         }
     };
+
+    // const calculateBalance = (operationType) => {
+    //     if (operationType === "Income") {
+    //         return balance.UAH + operationData.price;
+    //     }
+    //     else if (operationType === "Expense") {
+    //         return balance.UAH - operationData.price;
+    //     }
+
+    // }
 
     return (
         <form>

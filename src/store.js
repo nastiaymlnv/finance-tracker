@@ -4,15 +4,8 @@ import thunk from "redux-thunk";
 
 import reducers from "./ducks";
 
-const getInitialStore = () => {
-  return {
-    operations: {},
-  };
-};
-
 export const store = legacy_createStore(
   reducers,
-  getInitialStore(),
   composeWithDevTools(applyMiddleware(thunk)),
 );
 

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import cn from "classnames";
 import PropTypes from 'prop-types';
@@ -11,9 +11,10 @@ import {
     List,
     Card,
     ListItemText,
+    Typography
 } from "@mui/material";
 
-import { getOperations } from "../../ducks/operations";
+import { fetchSetBalance } from "../../ducks/balance";
 
 import { AddBtn } from "../../components";
 
@@ -21,30 +22,14 @@ import { monthNames } from "./dateItemsNames";
 
 import css from "./Home.module.css";
 
-const Home = ({setShowBottomNav}) => {
-    const dispatch = useDispatch();
+const Home = ({ setShowBottomNav }) => {
     const navigate = useNavigate();
-    setShowBottomNav(true)
+    const transactions = useSelector(state => state.operations);
+    const balance = useSelector(state => state.balance);
+    setShowBottomNav(true);
 
-    const [operationsList, setOperationsList] = useState([]);
-    
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
-        const response = await fetch("http://localhost:3001/operations");
-        if (response.ok) {
-            const results = await response.json();
-            const sortedEvents = results
-                .slice()
-                .sort(
-                    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-                );
-            setOperationsList(sortedEvents);
-            dispatch(getOperations(sortedEvents));
-        }
-    };
+    // return operationsList.filter(item => item.type === operationType)
+    //             .reduce((accum, curr) => accum += +curr.price, 0);
 
     const handleItemClick = (transactionId) =>
         navigate(`/operation/${transactionId}`);
@@ -52,11 +37,16 @@ const Home = ({setShowBottomNav}) => {
     return (
         <>
             <AppBar position="static">
-                <Toolbar></Toolbar>
+                <Toolbar>
+                    <Typography>
+                        { balance.UAH }
+                    </Typography>
+                    {/* add filter */}
+                </Toolbar>
             </AppBar>
             <Box sx={{ height: "100vh" }} className={css["Home-content-container"]}>
                 <List className={css["Operation-list"]}>
-                    {operationsList.map((item) => {
+                    {transactions.map((item) => {
                         const time = new Date(item.date);
                         const day = time.getDate();
                         const month = monthNames[time.getMonth()];
@@ -71,8 +61,7 @@ const Home = ({setShowBottomNav}) => {
                                 {item.type !== "Transfer" ? (
                                     <ListItemText className={css["Operation-list__item-info"]}>
                                         <div className={css["Operation-list__item-title"]}>
-                                            {" "}
-                                            {item.category}{" "}
+                                            {item.category}
                                         </div>
                                         <div> {item.payment} </div>
                                         <div> {item.comment} </div>
@@ -80,8 +69,7 @@ const Home = ({setShowBottomNav}) => {
                                 ) : (
                                     <ListItemText className={css["Operation-list__item-info"]}>
                                         <div className={css["Operation-list__item-title"]}>
-                                            {" "}
-                                            {item.type}{" "}
+                                            {item.type}
                                         </div>
                                         <div>
                                             {`${item.fromAccount} `}
@@ -114,26 +102,12 @@ const Home = ({setShowBottomNav}) => {
                         );
                     })}
                 </List>
-                <Link to={"/operation"}>
-                    <Box sx={{ position: "fixed", bottom: "70px", right: "20px" }}>
+                <Box sx={{ position: "fixed", bottom: "70px", right: "20px" }}>
+                    <Link to={"/operation"}>
                         <AddBtn />
-                    </Box>
-                </Link>
+                    </Link>
+                </Box>
             </Box>
-            {/* <Paper sx={{ position: "fixed", bottom: 0, width: '100vw' }} elevation={5}>
-                <BottomNavigation
-                    showLabels
-                    value={selectedMenuItem}
-                    onChange={(event, newValue) => {
-                        setSelectedMenuItem(newValue);
-                    }}
-                >
-                    <BottomNavigationAction label="Transactions" icon={<ReceiptIcon />} />
-                    <BottomNavigationAction label="Accounts" icon={<GroupIcon />} />
-                    <BottomNavigationAction label="Analytics" icon={<BarChartIcon />} />
-                    <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
-                </BottomNavigation>
-            </Paper> */}
         </>
     );
 };

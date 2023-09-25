@@ -1,4 +1,7 @@
 {
+  "balance": {
+    "UAH": 0
+  },
   "operations": [
     {
       "id": "67da88cc-df50-413b-a3c4-37ff02c0f886",
@@ -57,7 +60,7 @@
     {
       "id": "1b4a8bcb-9da3-4093-9806-26b6660f3824",
       "type": "Income",
-      "price": "123353464567567",
+      "price": "100",
       "category": "Salary",
       "date": "Tue Jun 27 2023 12:51:27 GMT+0300 (за східноєвропейським літнім часом)",
       "payment": "Cash",
@@ -353,11 +356,59 @@
     },
     {
       "id": "e5a8ab7e-7495-4c83-b059-e958db4068fa",
-      "type": "Expense",
-      "price": "22",
+      "type": "Income",
+      "price": "122",
       "category": "Gifts",
       "date": "Wed Sep 13 2023 15:45:22 GMT+0300 (за східноєвропейським літнім часом)",
       "payment": "Card",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": "",
+      "comment": ""
+    },
+    {
+      "id": "3a125957-594b-4ad3-8693-e856a0227494",
+      "type": "Expense",
+      "price": "1",
+      "category": "Gifts",
+      "date": "Fri Sep 22 2023 16:52:20 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Cash",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": "",
+      "comment": ""
+    },
+    {
+      "id": "6bbeffa7-a88b-4353-a75a-a2629ac3a78f",
+      "type": "Expense",
+      "price": "1",
+      "category": "Payments",
+      "date": "Mon Sep 25 2023 14:04:40 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Cash",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": "",
+      "comment": ""
+    },
+    {
+      "id": "b1ce32a1-910b-488e-a3d9-dc62b4696077",
+      "type": "Expense",
+      "price": "2",
+      "category": "Education",
+      "date": "Mon Sep 25 2023 14:05:47 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Cash",
+      "fromAccount": null,
+      "toAccount": null,
+      "paymentPlace": "",
+      "comment": ""
+    },
+    {
+      "id": "dde2fd5a-bbf7-45f1-8453-eab739549501",
+      "type": "Expense",
+      "price": "12",
+      "category": "Transport",
+      "date": "Mon Sep 25 2023 14:12:14 GMT+0300 (за східноєвропейським літнім часом)",
+      "payment": "Cash",
       "fromAccount": null,
       "toAccount": null,
       "paymentPlace": "",

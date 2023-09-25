@@ -33,6 +33,25 @@ export const operationRequestError = (error) => {
     };
 };
 
+export const fetchGetTransactions = () => {
+    return async (dispatch) => {
+        try {
+            const response = await axios("http://localhost:3001/operations");
+            const sortedEvents = response.data
+                .slice()
+                .sort(
+                    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+                );
+            dispatch(getOperations(sortedEvents));
+        }
+        catch (error) {
+            alert('Failed to fetch');
+            console.log(error.response.data.message);
+            dispatch(operationRequestError(error.response));
+        }
+    };
+};
+
 export const fetchPostNewTransaction = (operationData) => {
     return (dispatch) => {
         axios

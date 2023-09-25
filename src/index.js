@@ -1,16 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 
 import store from "./store";
-import Router from "./Router";
+import { fetchGetTransactions } from "./ducks/operations";
+import { fetchGetBalance } from "./ducks/balance";
 
 import GlobalStylesReset from "./assets/reset"
 
 import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+store.dispatch(fetchGetTransactions());
+store.dispatch(fetchGetBalance());
 
 root.render(
   // <React.StrictMode>
@@ -19,9 +22,6 @@ root.render(
       <BrowserRouter>
         <App />
       </BrowserRouter>
-      {/* <RouterProvider router={router}>
-        <App />
-      </RouterProvider> */}
     </Provider>
   // </React.StrictMode>,
 );
