@@ -32,6 +32,7 @@ import { categories } from "./categories";
 import { paymentAccounts } from "./paymentAccounts";
 
 import styles from "./CreateOperation.module.css";
+import { fetchDeleteTransaction } from "../../ducks/operations/operationsAction";
 
 const CreateOperation = ({setShowBottomNav}) => {
     setShowBottomNav(false)
@@ -101,6 +102,11 @@ const CreateOperation = ({setShowBottomNav}) => {
     const handlePaymentPlace = (e) => setPaymentPlace(e.target.value);
 
     const handleComment = (e) => setCommentValue(e.target.value);
+
+    const handleDeleteOperation = () => {
+        dispatch(fetchDeleteTransaction(transactionId));
+        navigate("/home");
+    }
 
     const confirmOperation = () => {
         operationData.type = selectedOperation;
@@ -187,6 +193,13 @@ const CreateOperation = ({setShowBottomNav}) => {
                     </Toolbar>
                 </AppBar>
             </Box>
+            { transactionId &&
+                <Box sx={{textAlign: "right"}}>
+                    <Button onClick={handleDeleteOperation} sx={{mt: "15px", mr: "15px", py: 0}}>
+                        Delete
+                    </Button>
+                </Box>
+            }
             <Box className={styles["Input-container"]}>
                 <TextField
                     type="number"
@@ -219,7 +232,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                 </div>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                        defaultValue={dayjs(Date())}
+                        defaultValue={dayjs(defaultDate)}
                         onChange={handleDate}
                         className={styles["Input-field"]}
                     />

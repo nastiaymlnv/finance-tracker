@@ -3,6 +3,7 @@ import axios from "axios";
 export const GET_TRANSACTIONS = "GET_TRANSACTIONS";
 export const POST_TRANSACTION = "POST_TRANSACTION";
 export const UPDATE_TRANSACTION = "UPDATE_TRANSACTION";
+export const DELETE_TRANSACTION = "DELETE_TRANSACTION";
 export const TRANSACTION_REQUEST_ERROR = "TRANSACTION_REQUEST_ERROR";
 
 export const getOperations = (data) => {
@@ -22,6 +23,13 @@ export const postOperation = (data) => {
 export const updateTransaction = (data) => {
     return {
         type: UPDATE_TRANSACTION,
+        payload: data,
+    };
+};
+
+export const deleteTransaction = (data) => {
+    return {
+        type: DELETE_TRANSACTION,
         payload: data,
     };
 };
@@ -79,3 +87,16 @@ export const fetchUpdateTransaction = (operationData) => {
             });
     };
 };
+
+export const fetchDeleteTransaction = (transactionId) => {
+    return (dispatch) => {
+        axios
+            .delete(`http://localhost:3001/operations/${transactionId}`)
+            .then(
+                dispatch(deleteTransaction(transactionId))
+            )
+            .catch(error => {
+                console.error(error);
+            });
+    }
+}
