@@ -29,7 +29,7 @@ import { fetchSetBalance } from "../../ducks/balance";
 
 import { operationTypes } from "./operationTypes";
 import { categories } from "./categories";
-import { paymentAccounts } from "./paymentAccounts";
+import { paymentAccounts } from "../../enums/paymentAccounts";
 
 import styles from "./CreateOperation.module.css";
 import { fetchDeleteTransaction } from "../../ducks/operations/operationsAction";
@@ -46,21 +46,22 @@ const CreateOperation = ({setShowBottomNav}) => {
         transactionId && operationsList.find((item) => item.id === transactionId);
     const operationData = transactionId
         ? currOperation
-        : {
+        :
+        {
             id: uuidv4(),
-            type: "Expense",
-            price: null,
-            category: null,
-            date: Date(),
-            payment: null,
+            account: null,
             fromAccount: null,
             toAccount: null,
-            paymentPlace: null,
-            comment: null,
+            category: null,
+            amount: null,
+            type: "Expenses",
+            note: null,
+            date: Date(),
+            payee: null
         };
 
     const [selectedOperation, setSelectedOperation] = useState(
-        transactionId ? currOperation.type : "Expense"
+        transactionId ? currOperation.type : "Expenses"
     );
     const [price, setPrice] = useState(transactionId ? currOperation.price : "");
     const [selectedCategory, setSelectedCategory] = useState(
@@ -70,7 +71,7 @@ const CreateOperation = ({setShowBottomNav}) => {
         transactionId ? currOperation.date : Date()
     );
     const [selectedAccount, setSelectedAccount] = useState(
-        transactionId ? currOperation.payment : ""
+        transactionId ? currOperation.account : ""
     );
     const [selectedTransferFrom, setSelectedTransferFrom] = useState(
         transactionId ? currOperation.fromAccount : ""
@@ -79,10 +80,10 @@ const CreateOperation = ({setShowBottomNav}) => {
         transactionId ? currOperation.toAccount : ""
     );
     const [paymentPlace, setPaymentPlace] = useState(
-        transactionId ? currOperation.paymentPlace : ""
+        transactionId ? currOperation.payee : ""
     );
     const [commentValue, setCommentValue] = useState(
-        transactionId ? currOperation.comment : ""
+        transactionId ? currOperation.note : ""
     );
 
     const handleOperationType = (e) => setSelectedOperation(e.target.value);
@@ -110,15 +111,15 @@ const CreateOperation = ({setShowBottomNav}) => {
 
     const confirmOperation = () => {
         operationData.type = selectedOperation;
-        operationData.price = price;
+        operationData.amount = selectedOperation === "Income" ? price : -price;
         operationData.category = selectedCategory;
         operationData.date = defaultDate;
-        operationData.paymentPlace = paymentPlace;
-        operationData.comment = commentValue;
+        operationData.payee = paymentPlace;
+        operationData.note = commentValue;
 
         if (!transactionId) {
             if (selectedOperation !== "Transfer") {
-                operationData.payment = selectedAccount;
+                operationData.account = selectedAccount;
 
                 if (!!price && !!selectedCategory && !!selectedAccount) {
                     dispatch(fetchPostNewTransaction(operationData));
@@ -150,13 +151,14 @@ const CreateOperation = ({setShowBottomNav}) => {
             // dispatch(fetchSetBalance(calculateBalance(operationData.type)))
             navigate("/home");
         }
+        console.log(operationData)
     };
 
     // const calculateBalance = (operationType) => {
     //     if (operationType === "Income") {
     //         return balance.UAH + operationData.price;
     //     }
-    //     else if (operationType === "Expense") {
+    //     else if (operationType === "Expenses") {
     //         return balance.UAH - operationData.price;
     //     }
 
@@ -298,7 +300,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                         </FormControl>
                         <TextField
                             label={
-                                selectedOperation === "Expense" ? "Place of payment" : "Payer"
+                                selectedOperation === "Expenses" ? "Place of payment" : "Payer"
                             }
                             value={paymentPlace}
                             onChange={handlePaymentPlace}

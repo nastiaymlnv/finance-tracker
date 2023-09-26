@@ -63,10 +63,11 @@ const Home = ({ setShowBottomNav }) => {
                                         <div className={css["Operation-list__item-title"]}>
                                             {item.category}
                                         </div>
-                                        <div> {item.payment} </div>
-                                        <div> {item.comment} </div>
+                                        <div> {item.account} </div>
+                                        {/* <div> {item.note} </div> */}
                                     </ListItemText>
                                 ) : (
+
                                     <ListItemText className={css["Operation-list__item-info"]}>
                                         <div className={css["Operation-list__item-title"]}>
                                             {item.type}
@@ -90,9 +91,7 @@ const Home = ({ setShowBottomNav }) => {
                                                 : css["Operation-list__item-price_green"]
                                         )}
                                     >
-                                        {item.type !== "Income"
-                                            ? `-${item.price} UAH`
-                                            : `${item.price} UAH`}
+                                        {item.amount} UAH
                                     </div>
                                     <div className={css["Operation-list__item-date"]}>
                                         {day} {month} {year}

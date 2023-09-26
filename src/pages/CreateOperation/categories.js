@@ -1,13 +1,13 @@
 export const categories = [
-  "Products",
-  "Transport",
+  "Groceries",
+  "Public transport",
   "Gifts",
   "Payments",
   "Education",
   "Health",
   "Selfcare",
-  "Cafes",
+  "Restaurant",
   "Leisure",
   "Adjustment",
-  "Salary",
+  "Salary"
 ];

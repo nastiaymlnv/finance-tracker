@@ -1,0 +1,1 @@
+export const timePeriods = ["last week", "last month", "last year"];
