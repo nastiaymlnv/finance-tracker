@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const GET_BALANCE = "GET_BALANCE";
-export const SET_BALANCE = "SET_BALANCE";
+export const UPDATE_BALANCE = "UPDATE_BALANCE";
 
 export const getBalance = (data) => {
     return {
@@ -10,9 +10,9 @@ export const getBalance = (data) => {
     };
 }
 
-export const setBalance = (data) => {
+export const updateBalance = (data) => {
     return {
-        type: SET_BALANCE,
+        type: UPDATE_BALANCE,
         payload: data,
     };
 }
@@ -24,12 +24,13 @@ export const fetchGetBalance = () => {
     };
 };
 
-export const fetchSetBalance = (newBalance) => {
+export const fetchUpdateBalance = (account, newBalance) => {
+    const updateData = { [account]: newBalance };
     return (dispatch) => {
         axios
-            .patch(`http://localhost:3001/balance`, {"UAH": newBalance})
+            .patch(`http://localhost:3001/balance`, updateData)
             .then((res) => {
-                dispatch(setBalance(res));
+                dispatch(updateBalance({account, newBalance}));
             })
     };
 };

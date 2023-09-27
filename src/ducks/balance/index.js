@@ -1,11 +1,11 @@
-import { getBalance, setBalance, fetchGetBalance, fetchSetBalance } from "./balanceAction";
+import { getBalance, updateBalance, fetchGetBalance, fetchUpdateBalance } from "./balanceAction";
 
 import balanceReducer from "./balanceReducer";
 
 export {
     getBalance,
-    setBalance,
+    updateBalance,
     fetchGetBalance,
-    fetchSetBalance,
+    fetchUpdateBalance,
     balanceReducer
 };

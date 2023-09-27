@@ -25,7 +25,7 @@ const operationsReducer = (state = [], action) => {
       return newState;
     }
     case TRANSACTION_REQUEST_ERROR:
-      return { errorMessage: action.payload.message };
+      return { errorStatus: action.payload };
     default:
       return state;
   }

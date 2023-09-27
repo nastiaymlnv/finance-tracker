@@ -1,16 +1,20 @@
 import {
     GET_BALANCE,
-    SET_BALANCE
+    UPDATE_BALANCE
 } from "./balanceAction";
 
 const balanceReducer = (state = [], action) => {
     switch (action.type) {
         case GET_BALANCE:
             return action.payload;
-        case SET_BALANCE:
-            console.log(action.payload.data)
-            // return action.payload.data;
-            return state
+        case UPDATE_BALANCE: {
+            const [account, newBalance] = action.payload;
+            const newState = {
+                ...state,
+                [account]: newBalance
+            }
+            return newState;
+        }
         default:
             return state;
     }

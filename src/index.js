@@ -12,8 +12,8 @@ import GlobalStylesReset from "./assets/reset"
 import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-store.dispatch(fetchGetTransactions());
 store.dispatch(fetchGetBalance());
+store.dispatch(fetchGetTransactions());
 
 root.render(
   // <React.StrictMode>

@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import cn from "classnames";
 import PropTypes from 'prop-types';
@@ -14,8 +14,6 @@ import {
     Typography
 } from "@mui/material";
 
-import { fetchSetBalance } from "../../ducks/balance";
-
 import { AddBtn } from "../../components";
 
 import { monthNames } from "./dateItemsNames";
@@ -27,9 +25,7 @@ const Home = ({ setShowBottomNav }) => {
     const transactions = useSelector(state => state.operations);
     const balance = useSelector(state => state.balance);
     setShowBottomNav(true);
-
-    // return operationsList.filter(item => item.type === operationType)
-    //             .reduce((accum, curr) => accum += +curr.price, 0);
+    const generalBalance = [...Object.values(balance)].reduce((accum, curr) => accum += curr, 0);
 
     const handleItemClick = (transactionId) =>
         navigate(`/operation/${transactionId}`);
@@ -38,9 +34,14 @@ const Home = ({ setShowBottomNav }) => {
         <>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography>
-                        { balance.UAH }
-                    </Typography>
+                    <Box>
+                        <Typography variant="body2">
+                            Balance
+                        </Typography>
+                        <Typography sx={{fontWeight: "bold"}}>
+                            { generalBalance } UAH
+                        </Typography>
+                    </Box>
                     {/* add filter */}
                 </Toolbar>
             </AppBar>
@@ -91,7 +92,7 @@ const Home = ({ setShowBottomNav }) => {
                                                 : css["Operation-list__item-price_green"]
                                         )}
                                     >
-                                        {item.amount} UAH
+                                        {item.type === "Income"? item.amount : -item.amount} UAH
                                     </div>
                                     <div className={css["Operation-list__item-date"]}>
                                         {day} {month} {year}

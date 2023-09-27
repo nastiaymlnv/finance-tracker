@@ -17,22 +17,20 @@ import {
     InputAdornment,
     MenuItem,
     FormControl,
-    Select,
-} from "@mui/material";
+    Select } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import {
     fetchPostNewTransaction,
-    fetchUpdateTransaction,
-} from "../../ducks/operations";
-import { fetchSetBalance } from "../../ducks/balance";
+    fetchUpdateTransaction } from "../../ducks/operations";
+import { fetchUpdateBalance } from "../../ducks/balance";
+import { fetchDeleteTransaction } from "../../ducks/operations/operationsAction";
 
+import { paymentAccounts } from "../../enums/paymentAccounts";
 import { operationTypes } from "./operationTypes";
 import { categories } from "./categories";
-import { paymentAccounts } from "../../enums/paymentAccounts";
 
 import styles from "./CreateOperation.module.css";
-import { fetchDeleteTransaction } from "../../ducks/operations/operationsAction";
 
 const CreateOperation = ({setShowBottomNav}) => {
     setShowBottomNav(false)
@@ -40,7 +38,7 @@ const CreateOperation = ({setShowBottomNav}) => {
     const navigate = useNavigate();
     const { transactionId } = useParams();
     const operationsList = useSelector((state) => state.operations);
-    // const balance = useSelector((state) => state.balance);
+    const balance = useSelector((state) => state.balance);
 
     const currOperation =
         transactionId && operationsList.find((item) => item.id === transactionId);
@@ -63,7 +61,7 @@ const CreateOperation = ({setShowBottomNav}) => {
     const [selectedOperation, setSelectedOperation] = useState(
         transactionId ? currOperation.type : "Expenses"
     );
-    const [price, setPrice] = useState(transactionId ? currOperation.price : "");
+    const [price, setPrice] = useState(transactionId ? currOperation.amount : "");
     const [selectedCategory, setSelectedCategory] = useState(
         transactionId ? currOperation.category : ""
     );
@@ -105,25 +103,37 @@ const CreateOperation = ({setShowBottomNav}) => {
     const handleComment = (e) => setCommentValue(e.target.value);
 
     const handleDeleteOperation = () => {
+        const deletedTransaction = operationsList.find(item => item.id === transactionId)
+        const newAccountBalance = balance[deletedTransaction.account] + +deletedTransaction.amount;
         dispatch(fetchDeleteTransaction(transactionId));
+        dispatch(fetchUpdateBalance(selectedAccount, newAccountBalance))
         navigate("/home");
     }
 
     const confirmOperation = () => {
         operationData.type = selectedOperation;
-        operationData.amount = selectedOperation === "Income" ? price : -price;
+        operationData.amount = price;
         operationData.category = selectedCategory;
         operationData.date = defaultDate;
         operationData.payee = paymentPlace;
         operationData.note = commentValue;
 
         if (!transactionId) {
+            let newAccountBalance = 0;
+
             if (selectedOperation !== "Transfer") {
                 operationData.account = selectedAccount;
 
                 if (!!price && !!selectedCategory && !!selectedAccount) {
                     dispatch(fetchPostNewTransaction(operationData));
-                    // dispatch(fetchSetBalance(calculateBalance(operationData.type)))
+                    if (selectedOperation !== "Income") {
+                        newAccountBalance = balance[[selectedAccount]] - price;
+                    }
+                    else {
+                        newAccountBalance = balance[[selectedAccount]] + price;
+                    }
+                    //condition for transfer in else
+                    dispatch(fetchUpdateBalance(selectedAccount, newAccountBalance))
                     navigate("/home");
                 }
             } else {
@@ -137,7 +147,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                     selectedTransferFrom !== selectedTransferTo
                 ) {
                     dispatch(fetchPostNewTransaction(operationData));
-                    // dispatch(fetchSetBalance(calculateBalance(operationData.type)))
+                    // dispatch(fetchUpdateBalance(calculateBalance(operationData.type)))
                     navigate("/home");
                 }
             }
@@ -148,21 +158,10 @@ const CreateOperation = ({setShowBottomNav}) => {
             operationData.toAccount = selectedTransferTo;
 
             dispatch(fetchUpdateTransaction(operationData));
-            // dispatch(fetchSetBalance(calculateBalance(operationData.type)))
+            // dispatch(fetchUpdateBalance(calculateBalance(operationData.type)))
             navigate("/home");
         }
-        console.log(operationData)
     };
-
-    // const calculateBalance = (operationType) => {
-    //     if (operationType === "Income") {
-    //         return balance.UAH + operationData.price;
-    //     }
-    //     else if (operationType === "Expenses") {
-    //         return balance.UAH - operationData.price;
-    //     }
-
-    // }
 
     return (
         <form>
@@ -206,7 +205,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                 <TextField
                     type="number"
                     label="Price"
-                    value={price}
+                    value={price < 0 ? -price: price}
                     InputProps={{
                         endAdornment: <InputAdornment position="end"> UAH </InputAdornment>,
                     }}

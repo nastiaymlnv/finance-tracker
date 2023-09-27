@@ -37,14 +37,14 @@ export const deleteTransaction = (data) => {
 export const operationRequestError = (error) => {
     return {
         type: TRANSACTION_REQUEST_ERROR,
-        payload: error.data,
+        payload: error,
     };
 };
 
 export const fetchGetTransactions = () => {
     return async (dispatch) => {
         try {
-            const response = await axios("http://localhost:3001/operations");
+            const response = await axios.get("http://localhost:3001/operations");
             const sortedEvents = response.data
                 .slice()
                 .sort(
@@ -53,9 +53,9 @@ export const fetchGetTransactions = () => {
             dispatch(getOperations(sortedEvents));
         }
         catch (error) {
-            alert('Failed to fetch');
-            console.log(error.response.data.message);
-            dispatch(operationRequestError(error.response));
+            alert(error.message);
+            console.log(error);
+            dispatch(operationRequestError(error.response.status));
         }
     };
 };
@@ -64,12 +64,12 @@ export const fetchPostNewTransaction = (operationData) => {
     return (dispatch) => {
         axios
             .post(`http://localhost:3001/operations`, operationData)
-            .then((res) => {
+            .then(res => {
                 dispatch(postOperation(res));
             })
-            .catch((error) => {
-                console.log(error.response.data.message);
-                dispatch(operationRequestError(error.response));
+            .catch(error => {
+                console.log(error);
+                dispatch(operationRequestError(error.response.status));
             });
     };
 };
@@ -78,12 +78,12 @@ export const fetchUpdateTransaction = (operationData) => {
     return (dispatch) => {
         axios
             .put(`http://localhost:3001/operations/${operationData.id}`, operationData)
-            .then((res) => {
+            .then(res => {
                 dispatch(updateTransaction(res));
             })
-            .catch((error) => {
-                console.log(error.response.data.message);
-                dispatch(operationRequestError(error.response));
+            .catch(error => {
+                console.log(error);
+                dispatch(operationRequestError(error.response.status));
             });
     };
 };
@@ -96,7 +96,8 @@ export const fetchDeleteTransaction = (transactionId) => {
                 dispatch(deleteTransaction(transactionId))
             )
             .catch(error => {
-                console.error(error);
+                console.log(error);
+                dispatch(operationRequestError(error.response.status));
             });
     }
 }
