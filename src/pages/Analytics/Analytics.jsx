@@ -4,7 +4,6 @@ import {
   AppBar,
   Toolbar,
   Box,
-  Paper,
   Select,
   MenuItem,
   Typography } from "@mui/material";
@@ -50,8 +49,12 @@ const Analytics = () => {
           </Select>
         </Box>
         <GeneralIncomeCard title="General income" account={account} />
-        <CategoriesExpencesBarChart title="Expences by categories" account={account} />
-        <CategoriesExpencesPieChart title="Expences structure" account={account} />
+        <ChartBox title="Expences by categories" account={account}>
+          <CategoriesExpencesBarChart />
+        </ChartBox>
+        <ChartBox title="Expences structure" account={account}>
+          <CategoriesExpencesPieChart />
+        </ChartBox>
       </Box>
     </Box>
   );
