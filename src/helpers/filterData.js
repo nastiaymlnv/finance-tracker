@@ -7,7 +7,7 @@ export const filterDataToDisplay = (categories, transactions, accountType, perio
             filteredArr.push(timePeriodTransactions
                 .filter(item => item.type === "Expenses" && item.category === category)
                 .map(elem => elem.amount)
-                .reduce((accum, curr) => accum += -curr, 0))
+                .reduce((accum, curr) => accum += curr, 0))
         }
     }
     else {
@@ -15,7 +15,7 @@ export const filterDataToDisplay = (categories, transactions, accountType, perio
             filteredArr.push(timePeriodTransactions
                 .filter(item => item.type === "Expenses" && item.account === accountType && item.category === category)
                 .map(elem => elem.amount)
-                .reduce((accum, curr) => accum += -curr, 0))
+                .reduce((accum, curr) => accum += curr, 0))
         }
     }
 

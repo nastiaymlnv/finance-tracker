@@ -31,7 +31,7 @@ export const CategoriesExpencesPieChart = ({ title, account }) => {
     const generalSum = transactions
         .filter(item => item.type === "Expenses")
         .map(elem => elem.amount)
-        .reduce((accum, curr) => accum += -curr, 0);
+        .reduce((accum, curr) => accum += curr, 0);
 
     const percentsArr = sumByCategoriesArr.map(item => ((item / generalSum) * 100).toFixed(1));
 
