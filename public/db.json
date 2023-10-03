@@ -1,6 +1,6 @@
 {
   "balance": {
-    "Card": 5000,
+    "Card": 4900,
     "Cash": 6000
   },
   "operations": [
@@ -267,8 +267,8 @@
     {
       "id": "43288356-872d-476e-a0b0-b5783f2daf01",
       "account": "Card",
-      "fromAccount": "Cash",
-      "toAccount": "Card",
+      "fromAccount": null,
+      "toAccount": null,
       "category": "Adjustment",
       "amount": 100,
       "type": "Income",
@@ -287,6 +287,19 @@
       "type": "Expenses",
       "note": "",
       "date": "Wed Sep 27 2023 14:00:45 GMT+0300 (за східноєвропейським літнім часом)",
+      "payee": "",
+      "payment": "Card"
+    },
+    {
+      "id": "4e2887d8-6ebb-4883-8a2b-1059c0c76a2e",
+      "account": "Card",
+      "fromAccount": null,
+      "toAccount": null,
+      "category": "Selfcare",
+      "amount": "100",
+      "type": "Expenses",
+      "note": "",
+      "date": "Tue Oct 03 2023 16:55:43 GMT+0300 (за східноєвропейським літнім часом)",
       "payee": "",
       "payment": "Card"
     }

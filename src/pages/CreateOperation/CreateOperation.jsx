@@ -120,6 +120,8 @@ const CreateOperation = ({setShowBottomNav}) => {
 
         if (!transactionId) {
             let newAccountBalance = 0;
+            let newAccountBalanceFrom = 0;
+            let newAccountBalanceTo = 0;
 
             if (selectedOperation !== "Transfer") {
                 operationData.account = selectedAccount;
@@ -132,8 +134,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                     else {
                         newAccountBalance = balance[[selectedAccount]] + price;
                     }
-                    //condition for transfer in else
-                    dispatch(fetchUpdateBalance(selectedAccount, newAccountBalance))
+                    dispatch(fetchUpdateBalance(selectedAccount, newAccountBalance));
                     navigate("/home");
                 }
             } else {
@@ -146,8 +147,15 @@ const CreateOperation = ({setShowBottomNav}) => {
                     !!selectedTransferTo &&
                     selectedTransferFrom !== selectedTransferTo
                 ) {
+                    newAccountBalanceFrom = balance[[selectedTransferFrom]] - price;
+                    newAccountBalanceTo = balance[[selectedTransferTo]] + +price;
+
+                    console.log(newAccountBalanceFrom, newAccountBalanceTo)
+
+                    // check throwing network error
+                    dispatch(fetchUpdateBalance(selectedTransferFrom, newAccountBalanceFrom));
+                    dispatch(fetchUpdateBalance(selectedTransferTo, newAccountBalanceTo));
                     dispatch(fetchPostNewTransaction(operationData));
-                    // dispatch(fetchUpdateBalance(calculateBalance(operationData.type)))
                     navigate("/home");
                 }
             }
@@ -157,6 +165,7 @@ const CreateOperation = ({setShowBottomNav}) => {
             operationData.fromAccount = selectedTransferFrom;
             operationData.toAccount = selectedTransferTo;
 
+            // add update balance on edit and update balance after delete transfer
             dispatch(fetchUpdateTransaction(operationData));
             // dispatch(fetchUpdateBalance(calculateBalance(operationData.type)))
             navigate("/home");
