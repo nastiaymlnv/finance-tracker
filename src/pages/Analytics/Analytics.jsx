@@ -53,7 +53,7 @@ const Analytics = () => {
         <ChartBox title="Revenue trend" account={account}>
           <TrendChart transactionType="Income"/>
         </ChartBox>
-        <ChartBox title="Revenue trend" account={account}>
+        <ChartBox title="Expenses trend" account={account}>
           <TrendChart transactionType="Expenses"/>
         </ChartBox>
         <ChartBox title="Expenses by categories" account={account}>
