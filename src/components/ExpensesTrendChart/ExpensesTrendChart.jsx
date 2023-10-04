@@ -41,20 +41,23 @@ export const ExpensesTrendChart = ({ timePeriodNum }) => {
     const transactions = useSelector(state => state.operations);
     const expenseByPeriod = filterDatesByCurrentPeriod(transactions, timePeriodNum);
     const secondIndexToSlice = timePeriodNum !== 365 ? 10 : 7;
-    const arrByDates = [];
+    const periodExpensesSum = [];
     let datesArr = new Set();
 
-    expenseByPeriod.map(item => item.type === "Expenses" && !datesArr.has(item.date.slice(0, secondIndexToSlice)) && datesArr.add(item.date.slice(0, 10)));
+    expenseByPeriod.map(item => item.type === "Expenses" && 
+        !datesArr.has(item.date.slice(0, secondIndexToSlice)) 
+        && datesArr.add(item.date.slice(0, secondIndexToSlice)));
     datesArr = Array.from(datesArr);
 
     for (let i = 0; i < datesArr.length; i++) {
-        arrByDates.push(expenseByPeriod
+        periodExpensesSum.push(expenseByPeriod
             .filter(item => item.type === "Expenses" && item.date.slice(0, secondIndexToSlice) === datesArr[i])
             .map(elem => elem.amount)
             .reduce((accum, curr) => accum += curr, 0)
         )
     }
 
+    console.log(datesArr, periodExpensesSum)
     const labels = datesArr;
 
     const data = {
@@ -63,7 +66,7 @@ export const ExpensesTrendChart = ({ timePeriodNum }) => {
             {
                 fill: true,
                 label: 'General expense',
-                data: arrByDates,
+                data: periodExpensesSum,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },

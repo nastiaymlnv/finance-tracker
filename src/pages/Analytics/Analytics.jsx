@@ -49,10 +49,10 @@ const Analytics = () => {
               </MenuItem>
           </Select>
         </Box>
+        <GeneralIncomeCard title="General income" account={account} />
         <ChartBox title="Expences trend" account={account}>
           <ExpensesTrendChart />
         </ChartBox>
-        <GeneralIncomeCard title="General income" account={account} />
         <ChartBox title="Expences by categories" account={account}>
           <CategoriesExpencesBarChart />
         </ChartBox>
