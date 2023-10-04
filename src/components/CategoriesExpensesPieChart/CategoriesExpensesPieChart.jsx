@@ -14,7 +14,7 @@ import { labels } from "../../enums/labels";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const CategoriesExpencesPieChart = ({ filteredDataArr }) => {
+export const CategoriesExpensesPieChart = ({ filteredDataArr }) => {
     const transactions = useSelector(state => state.operations);
     const generalSum = transactions
         .filter(item => item.type === "Expenses")
@@ -60,6 +60,6 @@ export const CategoriesExpencesPieChart = ({ filteredDataArr }) => {
         <Pie data={data} />
     )
 }
-CategoriesExpencesPieChart.propTypes = {
+CategoriesExpensesPieChart.propTypes = {
     filteredDataArr: PropTypes.array
 }

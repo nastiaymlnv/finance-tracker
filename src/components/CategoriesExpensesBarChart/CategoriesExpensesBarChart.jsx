@@ -32,7 +32,7 @@ const options = {
     },
 };
 
-export const CategoriesExpencesBarChart = ({ filteredDataArr }) => {
+export const CategoriesExpensesBarChart = ({ filteredDataArr }) => {
 
     const data = {
         labels,
@@ -49,6 +49,6 @@ export const CategoriesExpencesBarChart = ({ filteredDataArr }) => {
     );
 };
 
-CategoriesExpencesBarChart.propTypes = {
+CategoriesExpensesBarChart.propTypes = {
     filteredDataArr: PropTypes.array
 }

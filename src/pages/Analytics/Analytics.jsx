@@ -10,8 +10,8 @@ import {
 
 import {
   ChartBox,
-  CategoriesExpencesBarChart,
-  CategoriesExpencesPieChart,
+  CategoriesExpensesBarChart,
+  CategoriesExpensesPieChart,
   GeneralIncomeCard,
   ExpensesTrendChart } from "../../components";
 
@@ -50,14 +50,14 @@ const Analytics = () => {
           </Select>
         </Box>
         <GeneralIncomeCard title="General income" account={account} />
-        <ChartBox title="Expences trend" account={account}>
+        <ChartBox title="Expenses trend" account={account}>
           <ExpensesTrendChart />
         </ChartBox>
-        <ChartBox title="Expences by categories" account={account}>
-          <CategoriesExpencesBarChart />
+        <ChartBox title="Expenses by categories" account={account}>
+          <CategoriesExpensesBarChart />
         </ChartBox>
-        <ChartBox title="Expences structure" account={account}>
-          <CategoriesExpencesPieChart />
+        <ChartBox title="Expenses structure" account={account}>
+          <CategoriesExpensesPieChart />
         </ChartBox>
       </Box>
     </Box>
