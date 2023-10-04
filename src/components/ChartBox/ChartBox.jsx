@@ -6,17 +6,17 @@ import { Box, Paper, Typography, Select, MenuItem } from "@mui/material";
 
 import { timePeriods } from "../../enums/timePeriods";
 import { labels } from "../../enums/labels";
-import { filterDataToDisplay } from "../../helpers/filterData";
+import { filterDataToDisplay, filterDatesByCurrentPeriod } from "../../helpers/filterData";
 
 export const ChartBox = ({ children, title, account }) => {
     const transactions = useSelector((state) => state.operations);
     const [timePeriod, setTimePeriod] = useState("last week");
     const [timePeriodNum, setTimePeriodNum] = useState(7);
+    const timePeriodTransactions = filterDatesByCurrentPeriod(transactions, timePeriodNum);
     const filteredDataArr = filterDataToDisplay(
         labels,
-        transactions,
         account,
-        timePeriodNum,
+        timePeriodTransactions,
     );
 
     const handleSelect = (e) => {
@@ -30,7 +30,7 @@ export const ChartBox = ({ children, title, account }) => {
     const newElement = React.cloneElement(children, {
         timePeriodNum: timePeriodNum,
         filteredDataArr: filteredDataArr,
-        // handleSelect: handleSelect,
+        account: account
     });
 
     return (

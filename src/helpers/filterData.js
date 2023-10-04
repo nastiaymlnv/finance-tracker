@@ -1,5 +1,4 @@
-export const filterDataToDisplay = (categories, transactions, accountType, period) => {
-    const timePeriodTransactions = filterDatesByCurrentPeriod(transactions, period);
+export const filterDataToDisplay = (categories, accountType, timePeriodTransactions) => {
     const filteredArr = [];
 
     if (accountType === "All") {

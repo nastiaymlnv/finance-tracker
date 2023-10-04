@@ -37,21 +37,30 @@ const options = {
     }
 };
 
-export const TrendChart = ({ transactionType, timePeriodNum }) => {
+export const TrendChart = ({ transactionType, timePeriodNum, account }) => {
     const transactions = useSelector(state => state.operations);
     const expenseByPeriod = filterDatesByCurrentPeriod(transactions, timePeriodNum);
     const secondIndexToSlice = timePeriodNum !== 365 ? 10 : 7;
     const periodExpensesSum = [];
     let datesArr = new Set();
 
-    expenseByPeriod.map(item => item.type === transactionType && 
-        !datesArr.has(item.date.slice(0, secondIndexToSlice)) 
-        && datesArr.add(item.date.slice(0, secondIndexToSlice)));
+    if (account === "All") {
+        expenseByPeriod.map(item => item.type === transactionType && 
+            !datesArr.has(item.date.slice(0, secondIndexToSlice)) 
+            && datesArr.add(item.date.slice(0, secondIndexToSlice)));
+    }
+    else {
+        expenseByPeriod.map(item => item.type === transactionType
+            && item.account === account
+            && !datesArr.has(item.date.slice(0, secondIndexToSlice)) 
+            && datesArr.add(item.date.slice(0, secondIndexToSlice)));
+    }
+
     datesArr = Array.from(datesArr);
 
-    for (let i = 0; i < datesArr.length; i++) {
+    for (let date of datesArr) {
         periodExpensesSum.push(expenseByPeriod
-            .filter(item => item.type === transactionType && item.date.slice(0, secondIndexToSlice) === datesArr[i])
+            .filter(item => item.type === transactionType && item.date.slice(0, secondIndexToSlice) === date)
             .map(elem => elem.amount)
             .reduce((accum, curr) => accum += curr, 0)
         )
@@ -79,5 +88,6 @@ export const TrendChart = ({ transactionType, timePeriodNum }) => {
 
 TrendChart.propTypes = {
     transactionType: PropTypes.string,
-    timePeriodNum: PropTypes.number
+    timePeriodNum: PropTypes.number,
+    account: PropTypes.string
 }
