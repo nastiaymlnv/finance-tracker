@@ -5,6 +5,7 @@ import { ChartBox } from "./ChartBox";
 import { CategoriesExpencesBarChart } from "./CategoriesExpencesBarChart";
 import { CategoriesExpencesPieChart } from "./CategoriesExpencesPieChart";
 import { GeneralIncomeCard } from "./GeneralIncomeCard/GeneralIncomeCard";
+import { ExpensesTrendChart } from "./ExpensesTrendChart";
 
 export {
     AddBtn,
@@ -13,5 +14,6 @@ export {
     ChartBox,
     CategoriesExpencesBarChart,
     CategoriesExpencesPieChart,
-    GeneralIncomeCard
+    GeneralIncomeCard,
+    ExpensesTrendChart
 }

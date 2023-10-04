@@ -86,7 +86,7 @@ const CreateOperation = ({setShowBottomNav}) => {
 
     const handleOperationType = (e) => setSelectedOperation(e.target.value);
 
-    const handlePrice = (e) => e.target.value > 0 && setPrice(e.target.value);
+    const handlePrice = (e) => e.target.value > 0 && setPrice(+e.target.value);
 
     const handleCategory = (e) => setSelectedCategory(e.target.value);
 
@@ -111,10 +111,18 @@ const CreateOperation = ({setShowBottomNav}) => {
     }
 
     const confirmOperation = () => {
+        const date = new Date(defaultDate);
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        day = day < 10 && `0${day}`;
+        month = month < 10 && `0${month}`;
+        const newDate = `${year}-${month}-${day} ${defaultDate.slice(16, 24)}`;
+
         operationData.type = selectedOperation;
         operationData.amount = price;
         operationData.category = selectedCategory;
-        operationData.date = defaultDate;
+        operationData.date = newDate;
         operationData.payee = paymentPlace;
         operationData.note = commentValue;
 

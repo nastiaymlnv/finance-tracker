@@ -61,7 +61,5 @@ export const CategoriesExpencesPieChart = ({ filteredDataArr }) => {
     )
 }
 CategoriesExpencesPieChart.propTypes = {
-    timePeriod: PropTypes.string,
-    filteredDataArr: PropTypes.array,
-    handleSelect: PropTypes.func
+    filteredDataArr: PropTypes.array
 }

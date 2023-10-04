@@ -28,9 +28,9 @@ export const ChartBox = ({ children, title, account }) => {
     };
 
     const newElement = React.cloneElement(children, {
-        timePeriod: timePeriod,
+        timePeriodNum: timePeriodNum,
         filteredDataArr: filteredDataArr,
-        handleSelect: handleSelect,
+        // handleSelect: handleSelect,
     });
 
     return (

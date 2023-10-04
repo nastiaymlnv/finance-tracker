@@ -1,7 +1,7 @@
 {
   "balance": {
     "Card": 4900,
-    "Cash": 6000
+    "Cash": 5999
   },
   "operations": [
     {
@@ -273,7 +273,7 @@
       "amount": 100,
       "type": "Income",
       "note": "",
-      "date": "Mon Sep 25 2023 17:18:15 GMT+0300 (за східноєвропейським літнім часом)",
+      "date": "2023-09-25 17:18:15",
       "payee": "",
       "payment": "Card"
     },
@@ -286,7 +286,7 @@
       "amount": 12,
       "type": "Expenses",
       "note": "",
-      "date": "Wed Sep 27 2023 14:00:45 GMT+0300 (за східноєвропейським літнім часом)",
+      "date": "2023-09-27 14:00:45",
       "payee": "",
       "payment": "Card"
     },
@@ -296,10 +296,10 @@
       "fromAccount": null,
       "toAccount": null,
       "category": "Selfcare",
-      "amount": "100",
+      "amount": 100,
       "type": "Expenses",
       "note": "",
-      "date": "Tue Oct 03 2023 16:55:43 GMT+0300 (за східноєвропейським літнім часом)",
+      "date": "2023-10-03 16:55:43",
       "payee": "",
       "payment": "Card"
     }
