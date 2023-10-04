@@ -37,27 +37,26 @@ const options = {
     }
 };
 
-export const ExpensesTrendChart = ({ timePeriodNum }) => {
+export const TrendChart = ({ transactionType, timePeriodNum }) => {
     const transactions = useSelector(state => state.operations);
     const expenseByPeriod = filterDatesByCurrentPeriod(transactions, timePeriodNum);
     const secondIndexToSlice = timePeriodNum !== 365 ? 10 : 7;
     const periodExpensesSum = [];
     let datesArr = new Set();
 
-    expenseByPeriod.map(item => item.type === "Expenses" && 
+    expenseByPeriod.map(item => item.type === transactionType && 
         !datesArr.has(item.date.slice(0, secondIndexToSlice)) 
         && datesArr.add(item.date.slice(0, secondIndexToSlice)));
     datesArr = Array.from(datesArr);
 
     for (let i = 0; i < datesArr.length; i++) {
         periodExpensesSum.push(expenseByPeriod
-            .filter(item => item.type === "Expenses" && item.date.slice(0, secondIndexToSlice) === datesArr[i])
+            .filter(item => item.type === transactionType && item.date.slice(0, secondIndexToSlice) === datesArr[i])
             .map(elem => elem.amount)
             .reduce((accum, curr) => accum += curr, 0)
         )
     }
 
-    console.log(datesArr, periodExpensesSum)
     const labels = datesArr;
 
     const data = {
@@ -65,10 +64,10 @@ export const ExpensesTrendChart = ({ timePeriodNum }) => {
         datasets: [
             {
                 fill: true,
-                label: 'General expense',
+                label: transactionType === "Income" ? 'General income' : 'General expense',
                 data: periodExpensesSum,
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                borderColor: transactionType === "Income" ? 'rgb(76, 175, 80)' : 'rgb(255, 99, 132)',
+                backgroundColor: transactionType === "Income" ? 'rgba(76, 175, 80, 0.5)' : 'rgba(255, 99, 132, 0.5)',
             },
         ],
     };
@@ -78,6 +77,7 @@ export const ExpensesTrendChart = ({ timePeriodNum }) => {
     )
 }
 
-ExpensesTrendChart.propTypes = {
+TrendChart.propTypes = {
+    transactionType: PropTypes.string,
     timePeriodNum: PropTypes.number
 }
