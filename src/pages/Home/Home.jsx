@@ -96,7 +96,7 @@ const Home = ({ setShowBottomNav }) => {
             }
             <Box sx={{ height: "100vh" }} className={css["Home-content-container"]}>
                 <List className={css["Operation-list"]}>
-                    {filteredTransactions && filteredTransactions.map((item) => {
+                    {filteredTransactions.map((item) => {
                         const time = new Date(item.date);
                         const day = time.getDate();
                         const month = monthNames[time.getMonth()];
