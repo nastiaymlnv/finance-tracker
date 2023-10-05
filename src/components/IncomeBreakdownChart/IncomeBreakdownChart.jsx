@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import PropTypes from 'prop-types';
 
@@ -11,23 +10,14 @@ import {
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
-import { filterDatesByCurrentPeriod } from "../../helpers/filterData";
+import { filterIncomeByAccount } from "../../helpers/filterIncomeByAccount";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const IncomeBreakdownChart = ({ account, timePeriodNum}) => {
-    const transactions = useSelector(state => state.operations);
-    const incomeByPeriod = filterDatesByCurrentPeriod(transactions, timePeriodNum);
+export const IncomeBreakdownChart = ({ incomeByPeriodArr}) => {
     const labels = new Set();
     const sumByCategory = [];
-
-    let filteredByAccountArr = [];
-    if (account === "All") {
-        filteredByAccountArr = incomeByPeriod.filter(item => item.type === "Income")
-    }
-    else {
-        filteredByAccountArr = incomeByPeriod.filter(item => item.type === "Income" && item.account === account)
-    }
+    const filteredByAccountArr = filterIncomeByAccount(incomeByPeriodArr);
     
     filteredByAccountArr.map(item => labels.add(item.category));
 
@@ -70,6 +60,5 @@ export const IncomeBreakdownChart = ({ account, timePeriodNum}) => {
 }
 
 IncomeBreakdownChart.propTypes = {
-    account: PropTypes.string,
-    timePeriodNum: PropTypes.number
+    incomeByPeriodArr: PropTypes.array
 }
