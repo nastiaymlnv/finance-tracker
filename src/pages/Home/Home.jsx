@@ -65,7 +65,7 @@ const Home = ({ setShowBottomNav }) => {
                             {generalBalance} UAH
                         </Typography>
                     </Box>
-                    <IconButton color="inherit" onClick={handleFilter}>
+                    <IconButton color={isFilterOpen? "disabled" : "inherit"} onClick={handleFilter}>
                         <FilterListIcon />
                     </IconButton>
                 </Toolbar>
