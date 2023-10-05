@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import PropTypes from 'prop-types';
 
@@ -13,13 +13,8 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 const Router = ({setShowBottomNav}) => {
   return <Routes>
     <Route
-      index element={<Home setShowBottomNav={setShowBottomNav} />}
-      errorElement={<ErrorBoundary />}
-    />
-    <Route
       path="/finance-tracker"
-      element={<Home setShowBottomNav={setShowBottomNav} />}
-      errorElement={<ErrorBoundary />}
+      element={<Navigate to="/home" />}
     />
     <Route
       path="/home"

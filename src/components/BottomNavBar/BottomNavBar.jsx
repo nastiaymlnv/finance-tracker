@@ -27,7 +27,7 @@ export const BottomNavBar = () => {
                     setSelectedMenuItem(newValue);
                 }}
             >
-                <BottomNavigationAction component={Link} to="/home" label="Transactions" value={"/home" && "/finance-tracker"} icon={<ReceiptIcon />} />
+                <BottomNavigationAction component={Link} to="/home" label="Transactions" value="/home" icon={<ReceiptIcon />} />
                 <BottomNavigationAction component={Link} to="/accounts" label="Accounts" value="/accounts" icon={<GroupIcon />} />
                 <BottomNavigationAction component={Link} to="/analytics" label="Analytics" value="/analytics" icon={<BarChartIcon />} />
                 <BottomNavigationAction component={Link} to="/home" label="Settings" value="/settings" icon={<SettingsIcon />} />
