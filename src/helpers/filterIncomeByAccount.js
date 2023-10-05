@@ -1,4 +1,4 @@
-export const filterIncomeByAccount = (array) => {
+export const filterIncomeByAccount = (account, array) => {
     if (account === "All") {
         return array.filter(item => item.type === "Income");
     }

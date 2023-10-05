@@ -1,4 +1,4 @@
-export const categories = [
+export const expenseCategories = [
   "Groceries",
   "Public transport",
   "Gifts",
@@ -8,6 +8,10 @@ export const categories = [
   "Selfcare",
   "Restaurant",
   "Leisure",
+];
+
+export const incomeCategories = [
+  "Gifts",
   "Adjustment",
   "Salary"
 ];

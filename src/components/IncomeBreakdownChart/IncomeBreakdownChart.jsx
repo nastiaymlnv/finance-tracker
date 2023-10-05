@@ -11,15 +11,14 @@ import {
 import { Pie } from 'react-chartjs-2';
 
 import { filterIncomeByAccount } from "../../helpers/filterIncomeByAccount";
+import { incomeCategories } from "../../pages/CreateOperation/categories";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const IncomeBreakdownChart = ({ incomeByPeriodArr}) => {
-    const labels = new Set();
+export const IncomeBreakdownChart = ({ account, incomeByPeriodArr}) => {
+    const labels = incomeCategories;
     const sumByCategory = [];
-    const filteredByAccountArr = filterIncomeByAccount(incomeByPeriodArr);
-    
-    filteredByAccountArr.map(item => labels.add(item.category));
+    const filteredByAccountArr = filterIncomeByAccount(account, incomeByPeriodArr);
 
     const generalSum = filteredByAccountArr
         .map(elem => elem.amount)
@@ -34,7 +33,7 @@ export const IncomeBreakdownChart = ({ incomeByPeriodArr}) => {
     const percentsArr = sumByCategory.map(item => ((item / generalSum) * 100).toFixed(1));
 
     const data = {
-        labels: Array.from(labels),
+        labels,
         datasets: [
             {
                 label: '%',
@@ -60,5 +59,6 @@ export const IncomeBreakdownChart = ({ incomeByPeriodArr}) => {
 }
 
 IncomeBreakdownChart.propTypes = {
+    account: PropTypes.string,
     incomeByPeriodArr: PropTypes.array
 }

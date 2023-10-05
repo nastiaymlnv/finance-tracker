@@ -24,7 +24,7 @@ export const CategoriesExpensesPieChart = ({ filteredDataArr }) => {
     const percentsArr = filteredDataArr && filteredDataArr.map(item => ((item / generalSum) * 100).toFixed(1));
 
     const data = {
-        labels: labels,
+        labels,
         datasets: [
             {
                 label: '%',

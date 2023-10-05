@@ -28,7 +28,7 @@ import { fetchDeleteTransaction } from "../../ducks/operations/operationsAction"
 
 import { paymentAccounts } from "../../enums/paymentAccounts";
 import { operationTypes } from "./operationTypes";
-import { categories } from "./categories";
+import { incomeCategories, expenseCategories } from "./categories";
 
 import styles from "./CreateOperation.module.css";
 
@@ -240,7 +240,8 @@ const CreateOperation = ({setShowBottomNav}) => {
                             className={styles["Input-field"]}
                             required
                         >
-                            {categories.map((category, index) => (
+                            {(selectedOperation === "Expenses" ? expenseCategories : incomeCategories)
+                                .map((category, index) => (
                                 <MenuItem key={index} value={category}>
                                     {category}
                                 </MenuItem>

@@ -5,8 +5,8 @@ import { Typography } from "@mui/material";
 
 import { filterIncomeByAccount } from "../../helpers/filterIncomeByAccount";
 
-export const GeneralIncomeCard = ({ incomeByPeriodArr }) => {
-    const filteredByAccountArr = filterIncomeByAccount(incomeByPeriodArr);
+export const GeneralIncomeCard = ({ account, incomeByPeriodArr }) => {
+    const filteredByAccountArr = filterIncomeByAccount(account, incomeByPeriodArr);
 
     const periodIncome = filteredByAccountArr
         .map(elem => elem.amount)
@@ -20,5 +20,6 @@ export const GeneralIncomeCard = ({ incomeByPeriodArr }) => {
 }
 
 GeneralIncomeCard.propTypes = {
+    account: PropTypes.string,
     incomeByPeriodArr: PropTypes.array
 }
