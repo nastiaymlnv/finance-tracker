@@ -50,23 +50,23 @@ const Analytics = () => {
               </MenuItem>
           </Select>
         </Box>
-        <ChartBox title="Income breakdown" account={account}>
-          <IncomeBreakdownChart />
-        </ChartBox>
         <ChartBox title="General income" account={account}>
           <GeneralIncomeCard />
-        </ChartBox>
-        <ChartBox title="Revenue trend" account={account}>
-          <TrendChart transactionType="Income"/>
-        </ChartBox>
-        <ChartBox title="Expenses trend" account={account}>
-          <TrendChart transactionType="Expenses"/>
         </ChartBox>
         <ChartBox title="Expenses by categories" account={account}>
           <CategoriesExpensesBarChart />
         </ChartBox>
         <ChartBox title="Expenses structure" account={account}>
           <CategoriesExpensesPieChart />
+        </ChartBox>
+        <ChartBox title="Expenses trend" account={account}>
+          <TrendChart transactionType="Expenses"/>
+        </ChartBox>
+        <ChartBox title="Revenue trend" account={account}>
+          <TrendChart transactionType="Income"/>
+        </ChartBox>
+        <ChartBox title="Income breakdown" account={account}>
+          <IncomeBreakdownChart />
         </ChartBox>
       </Box>
     </Box>
