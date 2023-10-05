@@ -46,13 +46,13 @@ export const TrendChart = ({ transactionType, timePeriodNum, account }) => {
 
     if (account === "All") {
         expenseByPeriod.map(item => item.type === transactionType
-            && !datesArr.has(item.date.slice(0, secondIndexToSlice)) 
+            // && !datesArr.has(item.date.slice(0, secondIndexToSlice)) 
             && datesArr.add(item.date.slice(0, secondIndexToSlice)));
     }
     else {
         expenseByPeriod.map(item => item.type === transactionType
             && item.account === account
-            && !datesArr.has(item.date.slice(0, secondIndexToSlice)) 
+            // && !datesArr.has(item.date.slice(0, secondIndexToSlice)) 
             && datesArr.add(item.date.slice(0, secondIndexToSlice)));
     }
 

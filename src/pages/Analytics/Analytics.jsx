@@ -13,7 +13,8 @@ import {
   CategoriesExpensesBarChart,
   CategoriesExpensesPieChart,
   GeneralIncomeCard,
-  TrendChart } from "../../components";
+  TrendChart,
+  IncomeBreakdownChart } from "../../components";
 
 import { paymentAccounts } from "../../enums/paymentAccounts";
 
@@ -49,6 +50,7 @@ const Analytics = () => {
               </MenuItem>
           </Select>
         </Box>
+        <IncomeBreakdownChart title="Income breakdown" account={account}/>
         <GeneralIncomeCard title="General income" account={account} />
         <ChartBox title="Revenue trend" account={account}>
           <TrendChart transactionType="Income"/>
