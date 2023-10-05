@@ -1,13 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 import PropTypes from 'prop-types';
-import {
-    Box,
-    Paper,
-    Typography,
-    Select,
-    MenuItem } from "@mui/material";
+
 import {
     Chart as ChartJS,
     ArcElement,
@@ -16,15 +11,12 @@ import {
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
-import { timePeriods } from "../../enums/timePeriods";
 import { filterDatesByCurrentPeriod } from "../../helpers/filterData";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const IncomeBreakdownChart = ({title, account}) => {
+export const IncomeBreakdownChart = ({ account, timePeriodNum}) => {
     const transactions = useSelector(state => state.operations);
-    const [timePeriod, setTimePeriod] = useState("last week");
-    const [timePeriodNum, setTimePeriodNum] = useState(7);
     const incomeByPeriod = filterDatesByCurrentPeriod(transactions, timePeriodNum);
     const labels = new Set();
     const sumByCategory = [];
@@ -51,14 +43,6 @@ export const IncomeBreakdownChart = ({title, account}) => {
 
     const percentsArr = sumByCategory.map(item => ((item / generalSum) * 100).toFixed(1));
 
-    const handleSelect = (e) => {
-        const selectedValue = e.target.value;
-        setTimePeriod(selectedValue);
-        if (selectedValue === "last week") setTimePeriodNum(7);
-        else if (selectedValue === "last month") setTimePeriodNum(30);
-        else if (selectedValue === "last year") setTimePeriodNum(365);
-    }
-
     const data = {
         labels: Array.from(labels),
         datasets: [
@@ -81,29 +65,11 @@ export const IncomeBreakdownChart = ({title, account}) => {
     };
     
     return (
-        <Paper sx={{ p: "15px", mb: "10px" }}>
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: "15px" }}>
-                <Typography variant="h6">
-                    {title}
-                </Typography>
-                <Select
-                    variant="standard"
-                    value={timePeriod}
-                    onChange={handleSelect}
-                >
-                    {timePeriods.map((period, index) => (
-                        <MenuItem key={index} value={period}>
-                            {period}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </Box>
-            <Pie data={data} />
-        </Paper>
+        <Pie data={data} />
     )
 }
 
 IncomeBreakdownChart.propTypes = {
-    title: PropTypes.string,
-    account: PropTypes.string
+    account: PropTypes.string,
+    timePeriodNum: PropTypes.number
 }
