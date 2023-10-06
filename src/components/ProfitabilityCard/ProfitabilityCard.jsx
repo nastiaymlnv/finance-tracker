@@ -10,7 +10,7 @@ export const ProfitabilityCard = ({ account, timePeriodTransactions }) => {
         .map(item => item.amount)
         .reduce((accum, curr) => accum += curr, 0);
 
-    const filteredExpensesByAccount = account === "All" 
+    const filteredExpensesByAccount = account === "All"
         ? timePeriodTransactions.filter(item => item.type === "Expenses")
         : timePeriodTransactions.filter(item => item.type === "Expenses" && item.account === account);
 
@@ -23,7 +23,7 @@ export const ProfitabilityCard = ({ account, timePeriodTransactions }) => {
 
     return (
         <Typography variant="h6">
-            { profitability > 0 ? profitability : 0 } UAH
+            {profitability > 0 ? profitability : 0} UAH
         </Typography>
     )
 }

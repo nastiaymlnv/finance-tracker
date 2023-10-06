@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
-import { Box, Paper, Typography, Select, MenuItem } from "@mui/material";
+import {
+    Box,
+    Paper,
+    Typography,
+    Select,
+    MenuItem
+} from "@mui/material";
 
 import { timePeriods } from "../../enums/timePeriods";
 import { labels } from "../../enums/labels";

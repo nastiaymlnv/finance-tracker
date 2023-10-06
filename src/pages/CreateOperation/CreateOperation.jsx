@@ -17,12 +17,14 @@ import {
     InputAdornment,
     MenuItem,
     FormControl,
-    Select } from "@mui/material";
+    Select
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import {
     fetchPostNewTransaction,
-    fetchUpdateTransaction } from "../../ducks/operations";
+    fetchUpdateTransaction
+} from "../../ducks/operations";
 import { fetchUpdateBalance } from "../../ducks/balance";
 import { fetchDeleteTransaction } from "../../ducks/operations/operationsAction";
 
@@ -30,9 +32,9 @@ import { paymentAccounts } from "../../enums/paymentAccounts";
 import { operationTypes } from "./operationTypes";
 import { incomeCategories, expenseCategories } from "./categories";
 
-import styles from "./CreateOperation.module.css";
+const MAIN_COLOR = "#fff";
 
-const CreateOperation = ({setShowBottomNav}) => {
+const CreateOperation = ({ setShowBottomNav }) => {
     setShowBottomNav(false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -181,7 +183,7 @@ const CreateOperation = ({setShowBottomNav}) => {
     };
 
     return (
-        <form>
+        <FormControl fullWidth>
             <Box sx={{ height: "60px" }}>
                 <AppBar position="static">
                     <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -189,7 +191,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                             <Link to={"/home"}> Cancel </Link>
                         </Button>
                         <Select
-                            className={styles["Select-list"]}
+                            sx={{ color: "inherit" }}
                             value={selectedOperation}
                             onChange={handleOperationType}
                             required
@@ -211,23 +213,23 @@ const CreateOperation = ({setShowBottomNav}) => {
                     </Toolbar>
                 </AppBar>
             </Box>
-            { transactionId &&
-                <Box sx={{textAlign: "right"}}>
-                    <Button onClick={handleDeleteOperation} sx={{mt: "15px", mr: "15px", py: 0}}>
+            {transactionId &&
+                <Box sx={{ textAlign: "right" }}>
+                    <Button onClick={handleDeleteOperation} sx={{ mt: "15px", mr: "15px", py: 0 }}>
                         Delete
                     </Button>
                 </Box>
             }
-            <Box className={styles["Input-container"]}>
+            <Box sx={{ display: "flex", flexDirection: "column", p: "20px 10px", gap: "15px" }}>
                 <TextField
                     type="number"
                     label="Price"
-                    value={price < 0 ? -price: price}
+                    value={price < 0 ? -price : price}
                     InputProps={{
                         endAdornment: <InputAdornment position="end"> UAH </InputAdornment>,
                     }}
                     onChange={handlePrice}
-                    className={styles["Input-field"]}
+                    sx={{ backgroundColor: MAIN_COLOR }}
                     required
                 />
                 <div hidden={selectedOperation === "Transfer" && true}>
@@ -237,15 +239,15 @@ const CreateOperation = ({setShowBottomNav}) => {
                             value={selectedCategory}
                             onChange={handleCategory}
                             hidden={selectedOperation === "Transfer" && true}
-                            className={styles["Input-field"]}
+                            sx={{ backgroundColor: MAIN_COLOR }}
                             required
                         >
                             {(selectedOperation === "Expenses" ? expenseCategories : incomeCategories)
                                 .map((category, index) => (
-                                <MenuItem key={index} value={category}>
-                                    {category}
-                                </MenuItem>
-                            ))}
+                                    <MenuItem key={index} value={category}>
+                                        {category}
+                                    </MenuItem>
+                                ))}
                         </Select>
                     </FormControl>
                 </div>
@@ -253,7 +255,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                     <DatePicker
                         defaultValue={dayjs(defaultDate)}
                         onChange={handleDate}
-                        className={styles["Input-field"]}
+                        sx={{ backgroundColor: MAIN_COLOR }}
                     />
                 </LocalizationProvider>
                 {selectedOperation === "Transfer" ? (
@@ -269,7 +271,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                             <Select
                                 value={selectedTransferFrom}
                                 onChange={handleTransferFrom}
-                                className={styles["Input-field"]}
+                                sx={{ backgroundColor: MAIN_COLOR }}
                                 required
                             >
                                 {paymentAccounts.map((item, index) => (
@@ -285,7 +287,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                             <Select
                                 value={selectedTransferTo}
                                 onChange={handleTransferTo}
-                                className={styles["Input-field"]}
+                                sx={{ backgroundColor: MAIN_COLOR }}
                                 required
                             >
                                 {paymentAccounts.map((item, index) => (
@@ -304,7 +306,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                             <Select
                                 value={selectedAccount}
                                 onChange={handlePayment}
-                                className={styles["Input-field"]}
+                                sx={{ backgroundColor: MAIN_COLOR }}
                                 required
                             >
                                 {paymentAccounts.map((item, index) => (
@@ -321,7 +323,7 @@ const CreateOperation = ({setShowBottomNav}) => {
                             }
                             value={paymentPlace}
                             onChange={handlePaymentPlace}
-                            className={styles["Input-field"]}
+                            sx={{ backgroundColor: MAIN_COLOR }}
                         />
                     </>
                 )}
@@ -329,10 +331,10 @@ const CreateOperation = ({setShowBottomNav}) => {
                     label="Comment"
                     value={commentValue}
                     onChange={handleComment}
-                    className={styles["Input-field"]}
+                    sx={{ backgroundColor: MAIN_COLOR }}
                 />
             </Box>
-        </form>
+        </FormControl>
     );
 };
 

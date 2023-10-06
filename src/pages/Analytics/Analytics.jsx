@@ -6,7 +6,8 @@ import {
   Box,
   Select,
   MenuItem,
-  Typography } from "@mui/material";
+  Typography
+} from "@mui/material";
 
 import {
   ChartBox,
@@ -15,28 +16,27 @@ import {
   GeneralIncomeCard,
   TrendChart,
   IncomeBreakdownChart,
-  ProfitabilityCard } from "../../components";
+  ProfitabilityCard
+} from "../../components";
 
 import { paymentAccounts } from "../../enums/paymentAccounts";
 
 const Analytics = () => {
   const [account, setAccount] = useState("All");
 
-  const handleSelect = (e) => {
-    setAccount(e.target.value);
-  }
+  const handleSelect = (e) => setAccount(e.target.value);
 
   return (
-    <Box sx={{mb: "70px"}}>
+    <Box sx={{ mb: "70px" }}>
       <AppBar position="static">
         <Toolbar>
         </Toolbar>
       </AppBar>
-      <Box sx={{m: "20px 10px"}}>
-        <Box sx={{display: "flex", alignItems: "center", mb: "15px", ml: "10px"}}>
+      <Box sx={{ m: "20px 10px" }}>
+        <Box sx={{ display: "flex", alignItems: "center", mb: "15px", ml: "10px" }}>
           <Typography variant="h6"> Selected account: </Typography>
           <Select
-            sx={{ml: "10px"}}
+            sx={{ ml: "10px" }}
             variant="standard"
             value={account}
             onChange={handleSelect}
@@ -46,14 +46,11 @@ const Analytics = () => {
                 {account}
               </MenuItem>
             ))}
-              <MenuItem key="all" value="All">
-                All
-              </MenuItem>
+            <MenuItem key="all" value="All">
+              All
+            </MenuItem>
           </Select>
         </Box>
-        <ChartBox title="Profitability" account={account}>
-          <ProfitabilityCard />
-        </ChartBox>
         <ChartBox title="General income" account={account}>
           <GeneralIncomeCard />
         </ChartBox>
@@ -64,13 +61,16 @@ const Analytics = () => {
           <CategoriesExpensesPieChart />
         </ChartBox>
         <ChartBox title="Expenses trend" account={account}>
-          <TrendChart transactionType="Expenses"/>
+          <TrendChart transactionType="Expenses" />
         </ChartBox>
         <ChartBox title="Revenue trend" account={account}>
-          <TrendChart transactionType="Income"/>
+          <TrendChart transactionType="Income" />
         </ChartBox>
         <ChartBox title="Income breakdown" account={account}>
           <IncomeBreakdownChart />
+        </ChartBox>
+        <ChartBox title="Profitability" account={account}>
+          <ProfitabilityCard />
         </ChartBox>
       </Box>
     </Box>

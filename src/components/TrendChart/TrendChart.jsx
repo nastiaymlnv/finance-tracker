@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import PropTypes from "prop-types";
 import {
@@ -14,8 +13,6 @@ import {
     Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-
-import { filterDatesByCurrentPeriod } from "../../helpers/filterData";
 
 ChartJS.register(
     CategoryScale,
@@ -37,19 +34,17 @@ const options = {
     }
 };
 
-export const TrendChart = ({ transactionType, timePeriodNum, account }) => {
-    const transactions = useSelector(state => state.operations);
-    const expenseByPeriod = filterDatesByCurrentPeriod(transactions, timePeriodNum);
+export const TrendChart = ({ transactionType, timePeriodNum, timePeriodTransactions, account }) => {
     const secondIndexToSlice = timePeriodNum !== 365 ? 10 : 7;
     const periodExpensesSum = [];
     let datesArr = new Set();
 
     if (account === "All") {
-        expenseByPeriod.map(item => item.type === transactionType
+        timePeriodTransactions.map(item => item.type === transactionType
             && datesArr.add(item.date.slice(0, secondIndexToSlice)));
     }
     else {
-        expenseByPeriod.map(item => item.type === transactionType
+        timePeriodTransactions.map(item => item.type === transactionType
             && item.account === account
             && datesArr.add(item.date.slice(0, secondIndexToSlice)));
     }
@@ -57,7 +52,7 @@ export const TrendChart = ({ transactionType, timePeriodNum, account }) => {
     datesArr = Array.from(datesArr);
 
     for (let date of datesArr) {
-        periodExpensesSum.push(expenseByPeriod
+        periodExpensesSum.push(timePeriodTransactions
             .filter(item => item.type === transactionType && item.date.slice(0, secondIndexToSlice) === date)
             .map(elem => elem.amount)
             .reduce((accum, curr) => accum += curr, 0)
@@ -87,5 +82,6 @@ export const TrendChart = ({ transactionType, timePeriodNum, account }) => {
 TrendChart.propTypes = {
     transactionType: PropTypes.string,
     timePeriodNum: PropTypes.number,
+    timePeriodTransactions: PropTypes.array,
     account: PropTypes.string
 }

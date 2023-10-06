@@ -1,0 +1,19 @@
+.Card-list__item {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-top: 5px;
+    padding: 10px;
+
+    &:last-child {
+        margin-bottom: 60px;
+    }
+}
+
+.Card-list__item-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 0;
+    width: fit-content;
+    text-align: right;
+}

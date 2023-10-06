@@ -8,6 +8,8 @@ import { GeneralIncomeCard } from "./GeneralIncomeCard/GeneralIncomeCard";
 import { TrendChart } from "./TrendChart/TrendChart";
 import { IncomeBreakdownChart } from "./IncomeBreakdownChart/IncomeBreakdownChart";
 import { ProfitabilityCard } from "./ProfitabilityCard";
+import { CustomFilterList } from "./FilterList/FilterList";
+import { TransactionCard } from "./TransactionCard";
 
 export {
     AddBtn,
@@ -19,5 +21,7 @@ export {
     GeneralIncomeCard,
     TrendChart,
     IncomeBreakdownChart,
-    ProfitabilityCard
+    ProfitabilityCard,
+    CustomFilterList,
+    TransactionCard
 }

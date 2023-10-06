@@ -13,7 +13,7 @@ export const GeneralIncomeCard = ({ account, timePeriodTransactions }) => {
         .reduce((accum, curr) => accum += curr, 0)
 
     return (
-        <Typography variant="h6" sx={{color: "green"}}>
+        <Typography variant="h6" sx={{ color: "green" }}>
             {periodIncome} UAH
         </Typography>
     );
