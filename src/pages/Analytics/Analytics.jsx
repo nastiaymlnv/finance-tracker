@@ -14,7 +14,8 @@ import {
   CategoriesExpensesPieChart,
   GeneralIncomeCard,
   TrendChart,
-  IncomeBreakdownChart } from "../../components";
+  IncomeBreakdownChart,
+  ProfitabilityCard } from "../../components";
 
 import { paymentAccounts } from "../../enums/paymentAccounts";
 
@@ -50,6 +51,9 @@ const Analytics = () => {
               </MenuItem>
           </Select>
         </Box>
+        <ChartBox title="Profitability" account={account}>
+          <ProfitabilityCard />
+        </ChartBox>
         <ChartBox title="General income" account={account}>
           <GeneralIncomeCard />
         </ChartBox>

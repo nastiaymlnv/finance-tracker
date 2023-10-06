@@ -29,7 +29,7 @@ export const ChartBox = ({ children, title, account }) => {
 
     const newElement = React.cloneElement(children, {
         timePeriodNum: timePeriodNum,
-        incomeByPeriodArr: timePeriodTransactions,
+        timePeriodTransactions: timePeriodTransactions,
         filteredDataArr: filteredDataArr,
         account: account
     });

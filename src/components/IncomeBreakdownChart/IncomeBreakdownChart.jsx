@@ -15,10 +15,10 @@ import { incomeCategories } from "../../pages/CreateOperation/categories";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const IncomeBreakdownChart = ({ account, incomeByPeriodArr}) => {
+export const IncomeBreakdownChart = ({ account, timePeriodTransactions}) => {
     const labels = incomeCategories;
     const sumByCategory = [];
-    const filteredByAccountArr = filterIncomeByAccount(account, incomeByPeriodArr);
+    const filteredByAccountArr = filterIncomeByAccount(account, timePeriodTransactions);
 
     const generalSum = filteredByAccountArr
         .map(elem => elem.amount)
@@ -60,5 +60,5 @@ export const IncomeBreakdownChart = ({ account, incomeByPeriodArr}) => {
 
 IncomeBreakdownChart.propTypes = {
     account: PropTypes.string,
-    incomeByPeriodArr: PropTypes.array
+    timePeriodTransactions: PropTypes.array
 }

@@ -7,6 +7,7 @@ import { CategoriesExpensesPieChart } from "./CategoriesExpensesPieChart";
 import { GeneralIncomeCard } from "./GeneralIncomeCard/GeneralIncomeCard";
 import { TrendChart } from "./TrendChart/TrendChart";
 import { IncomeBreakdownChart } from "./IncomeBreakdownChart/IncomeBreakdownChart";
+import { ProfitabilityCard } from "./ProfitabilityCard";
 
 export {
     AddBtn,
@@ -17,5 +18,6 @@ export {
     CategoriesExpensesPieChart,
     GeneralIncomeCard,
     TrendChart,
-    IncomeBreakdownChart
+    IncomeBreakdownChart,
+    ProfitabilityCard
 }
